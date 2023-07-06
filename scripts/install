@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+[[ ${VIRTUAL_ENV:-""} == "" ]] && (echo "Please, activate first a virtualenv"; exit 1)
+cd "$(dirname "$0")/.."
+
+pip install -r requirements.txt
+
+pip install -r requirements-dev.txt
+
+python manage.py migrate
