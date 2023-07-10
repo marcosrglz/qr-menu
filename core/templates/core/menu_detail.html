@@ -1,0 +1,21 @@
+<h1>{{ object.restaurante.nombre }}</h1>
+<h2>{{ object.nombre }}</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Plato</th>
+            <th></th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for plato in object.plato_set.all %}
+        <tr>
+            <td> {{ plato.nombre }} </td>
+            <td>......................</td>
+            <td> {{ plato.precio }} € </td>
+        </tr>
+        {% endfor %}
+    </body>
+</table>
