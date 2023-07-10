@@ -1,6 +1,6 @@
 from django.urls import path
-from core.views import MenuView
 
+from core.views import MenuView
 
 app_name = "core"
 urlpatterns = [
