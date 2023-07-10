@@ -1,10 +1,6 @@
-{{ object.pk }}
+<h1>{{ object.restaurante.nombre }}</h1>
+<h2>{{ object.nombre }}</h2>
 
-{{ object.restaurante.nombre }}
-
-{{ object.restaurante.usuario.username }}
-
-{% for plato in object.plato_set.all %}
 <table>
     <thead>
         <tr>
@@ -14,10 +10,12 @@
         </tr>
     </thead>
     <tbody>
-        {{ <tr></tr> }}
+        {% for plato in object.plato_set.all %}
+        <tr>
+            <td> {{ plato.nombre }} </td>
+            <td>......................</td>
+            <td> {{ plato.precio }} € </td>
+        </tr>
+        {% endfor %}
     </body>
 </table>
-{% endfor %}
-
-
-plato..........................................20,00 €
