@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "debug_toolbar",
     "core.apps.CoreConfig",
+    "restaurante.apps.RestauranteConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
