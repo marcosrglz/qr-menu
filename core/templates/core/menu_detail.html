@@ -1,0 +1,23 @@
+{{ object.pk }}
+
+{{ object.restaurante.nombre }}
+
+{{ object.restaurante.usuario.username }}
+
+{% for plato in object.plato_set.all %}
+<table>
+    <thead>
+        <tr>
+            <th>Plato</th>
+            <th></th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{ <tr></tr> }}
+    </body>
+</table>
+{% endfor %}
+
+
+plato..........................................20,00 €
