@@ -13,5 +13,8 @@ class MenuDetailViewTests(TestCase):
         call_command("sampledata")
         menu = models.Menu.objects.get(nombre="Carta Manduca")
         url = reverse("core:menu-detail", args=(menu.pk,))
-        response = self.client.get(url)
+
+        with self.assertNumQueries(2):
+            response = self.client.get(url)
+
         self.assertEqual(response.status_code, 200)
