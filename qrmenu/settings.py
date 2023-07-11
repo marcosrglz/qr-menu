@@ -35,7 +35,10 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "debug_toolbar",
     "core.apps.CoreConfig",
+    "cuentas",
     "restaurante.apps.RestauranteConfig",
+
+    # django apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -128,3 +131,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+# Form Redirect
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"

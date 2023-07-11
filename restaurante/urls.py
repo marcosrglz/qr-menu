@@ -1,6 +1,6 @@
 from django.urls import path
 
-from restaurante.views import RestauranteDetailView, MenuCreateView
+from restaurante.views import MenuCreateView, RestauranteDetailView
 
 app_name = "restaurante"
 urlpatterns = [
