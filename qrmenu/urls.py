@@ -23,7 +23,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("cuentas/", include("cuentas.urls")),
     path("cuentas/", include("django.contrib.auth.urls")),
-    path("", TemplateView.as_view(template_name='home.html'), name='home'),
+    path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path("menus/", include("core.urls")),
-    path("r/", include("restaurante.urls")),
+    path("r/", include("gestion.urls")),
 ]

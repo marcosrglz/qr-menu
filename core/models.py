@@ -10,19 +10,12 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class Restaurante(BaseModel):
-    nombre = models.CharField("Nombre", max_length=50)
-    usuario = models.ForeignKey(
-        settings.AUTH_USER_MODEL, verbose_name="Usuario", on_delete=models.PROTECT
-    )
-
-    def __str__(self):
-        return self.nombre
-
-
 class Menu(BaseModel):
     nombre = models.CharField("Nombre", max_length=50)
-    restaurante = models.ForeignKey(Restaurante, on_delete=models.PROTECT)
+    descripcion = models.TextField("Descripción")
+    usuario = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name="usuario", on_delete=models.PROTECT
+    )
 
     def __str__(self):
         return self.nombre
