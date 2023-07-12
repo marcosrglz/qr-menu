@@ -1,0 +1,14 @@
+{% extends 'gestion_layout.html' %}
+
+{% block content %}
+
+<h1>Hola {{ request.user }}</h1>
+
+{% for menu in menus %}
+<h2>{{ menu.nombre }}</h2>
+<p>Nº Platos: {{ menu.plato_set.count }}</p>
+{% endfor %}
+
+<a href={% url "gestion:crear-menu" %}>Crear un menú</a>
+
+{% endblock %}

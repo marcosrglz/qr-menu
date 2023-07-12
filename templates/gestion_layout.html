@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Menu - Gestión{% endblock %}</title>
+</head>
+<body>
+  <main>
+    <p><a href="{% url 'logout' %}">Log Out</a></p>
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+</html>
