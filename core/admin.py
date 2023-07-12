@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import Menu, Plato, Restaurante
+from core.models import Menu, Plato
 
 
 class PlatoInline(admin.TabularInline):
@@ -13,18 +13,11 @@ class MenuInline(admin.TabularInline):
     extra = 0
 
 
-class RestauranteAdmin(admin.ModelAdmin):
-    readonly_fields = ["id", "creado", "modificado"]
-    inlines = [MenuInline]
-    list_display = ["id", "nombre", "usuario"]
-    search_fields = ["nombre"]
-
-
 class MenuAdmin(admin.ModelAdmin):
     readonly_fields = ["id", "creado", "modificado"]
     inlines = [PlatoInline]
-    list_display = ["id", "nombre", "restaurante", "creado", "modificado"]
-    search_fields = ["nombre", "restaurante"]
+    list_display = ["id", "nombre", "usuario", "creado", "modificado"]
+    search_fields = ["nombre", "usuario"]
 
 
 class PlatoAdmin(admin.ModelAdmin):
@@ -33,6 +26,5 @@ class PlatoAdmin(admin.ModelAdmin):
     search_fields = ["nombre", "menu"]
 
 
-admin.site.register(Restaurante, RestauranteAdmin)
 admin.site.register(Menu, MenuAdmin)
 admin.site.register(Plato, PlatoAdmin)

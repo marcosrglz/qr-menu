@@ -34,10 +34,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "debug_toolbar",
-    "core.apps.CoreConfig",
+    "core",
     "cuentas",
-    "restaurante.apps.RestauranteConfig",
-
+    "gestion",
     # django apps
     "django.contrib.admin",
     "django.contrib.auth",

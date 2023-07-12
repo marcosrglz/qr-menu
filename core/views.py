@@ -8,5 +8,5 @@ class MenuView(generic.DetailView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset = queryset.select_related("restaurante")
+        queryset = queryset.select_related("usuario")
         return queryset

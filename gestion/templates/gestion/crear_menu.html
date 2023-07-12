@@ -1,0 +1,6 @@
+<form method="POST" action={% url "gestion:crear-menu" %}>
+    {{ form }}
+    {% csrf_token %}
+    <button type="submit">Confirmar</button>
+</form>
+
