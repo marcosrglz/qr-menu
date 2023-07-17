@@ -3,7 +3,7 @@ from decimal import Decimal as D
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
-from core.models import Menu, Plato
+from core.models import Menu, Categoria, Plato
 
 
 class Command(BaseCommand):
@@ -36,18 +36,23 @@ class Command(BaseCommand):
             usuario=usuarioManduca,
         )
 
+        categoriaManduca, _ = Categoria.objects.get_or_create(
+            nombre="Bocadillos Calientes",
+            menu=menuManduca
+        )
+
         plato1Manduca, _ = Plato.objects.get_or_create(
             nombre="Perrito Bahíña",
             precio=D("6.99"),
             descripcion="Frankfurt 200gr, Champiñones, Cebolla Caramelizada, Queso Edam",  # noqa:E501
-            menu=menuManduca,
+            categoria=categoriaManduca
         )
 
         plato2Manduca, _ = Plato.objects.get_or_create(
             nombre="Bocadillo Suculento",
             precio=D("7.50"),
             descripcion="Pechuga de pollo, Lomo adobado, Queso Edam, Salsa Alioli",  # noqa:E501
-            menu=menuManduca,
+            categoria=categoriaManduca
         )
 
         print("Sampledata Ejecutado")
