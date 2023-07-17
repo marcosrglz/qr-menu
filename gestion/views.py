@@ -1,8 +1,8 @@
 from django import forms
-from django.views import generic
-from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.views import generic
+from django.views.generic.edit import CreateView
 
 from core import models
 
@@ -21,7 +21,7 @@ class MenuCreateForm(forms.ModelForm):
         return models.Menu.objects.create(
             nombre=self.cleaned_data["nombre"],
             descripcion=self.cleaned_data["descripcion"],
-            usuario=self.user
+            usuario=self.user,
         )
 
 

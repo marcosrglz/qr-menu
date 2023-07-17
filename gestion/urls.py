@@ -1,6 +1,6 @@
 from django.urls import path
 
-from gestion.views import MenuCreateView, DashboardView
+from gestion.views import DashboardView, MenuCreateView
 
 app_name = "gestion"
 urlpatterns = [

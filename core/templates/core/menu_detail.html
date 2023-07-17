@@ -1,21 +1,91 @@
-<h1>{{ object.usuario.nombre }}</h1>
-<h2>{{ object.nombre }}</h2>
+{% load static %}
 
-<table>
-    <thead>
-        <tr>
-            <th>Plato</th>
-            <th></th>
-            <th>Precio</th>
-        </tr>
-    </thead>
-    <tbody>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'normalize.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'public_menu.css' %}"
+    />
+    <title>{% block title %}Menu - Gestión{% endblock %}</title>
+  </head>
+  <body>
+    {% comment %} Selector de categoría {% endcomment %} {% comment %}
+    <header>
+      <img
+        class="restaurant-menu-image"
+        src="{% static 'images/restaurante-el-tunel-logo.jpg' %}"
+      />
+      <h1 class="menu-title">{{ object.nombre }}</h1>
+    </header>
+    {% endcomment %} {% comment %} Dentro de la categoría {% endcomment %}
+    {%comment%}
+    <header>
+      <nav class="back-to-category">
+        <span>&lt; Volver</span>
+      </nav>
+      <h1 class="category-title">Tapas y Raciones</h1>
+    </header>
+    <main>
+      <ul class="plates-list">
         {% for plato in object.plato_set.all %}
-        <tr>
-            <td> {{ plato.nombre }} </td>
-            <td>......................</td>
-            <td> {{ plato.precio }} € </td>
-        </tr>
+        <li class="plate-item">
+          <div class="plate-info">
+            <p class="plate-name">{{ plato.nombre }}</p>
+            <p class="plate-description">{{ plato.descripcion }}</p>
+            <p class="plate-price">{{ plato.precio|floatformat:"2g" }} €</p>
+          </div>
+          <img
+            class="plate-image"
+            src="https://mui.kitchen/__export/1617556782030/sites/muikitchen/img/2021/04/04/perro-caliente.jpg_402197180.jpg"
+          />
+        </li>
         {% endfor %}
-    </body>
-</table>
+      </ul>
+    </main>
+    {% endcomment %}
+    <header>
+      <h1 class="category-title">Tapas y Raciones</h1>
+    </header>
+    <hr />
+    <main>
+      <ul class="plates-list">
+        {% for plato in object.plato_set.all %}
+        <li class="plate-item">
+          <div class="plate-info">
+            <div>
+              <p class="plate-name">{{ plato.nombre }}</p>
+              <p class="plate-description">{{ plato.descripcion }}</p>
+            </div>
+            <div>
+              <p class="plate-price">{{ plato.precio|floatformat:"2g" }} €</p>
+            </div>
+          </div>
+          <img
+            class="plate-image"
+            src="https://mui.kitchen/__export/1617556782030/sites/muikitchen/img/2021/04/04/perro-caliente.jpg_402197180.jpg"
+          />
+        </li>
+        <hr />
+        {% endfor %}
+      </ul>
+      <a class="back-to-category" href="">
+        <span>&lt; Volver</span>
+      </a>
+    </main>
+  </body>
+</html>
