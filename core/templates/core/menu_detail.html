@@ -57,14 +57,14 @@
         {% endfor %}
       </ul>
     </main>
-    {% endcomment %}
+    {% endcomment %} {% for categoria in object.categoria_set.all %}
     <header>
-      <h1 class="category-title">Tapas y Raciones</h1>
+      <h1 class="category-title">{{ categoria.nombre }}</h1>
     </header>
     <hr />
     <main>
       <ul class="plates-list">
-        {% for plato in object.plato_set.all %}
+        {% for plato in categoria.plato_set.all %}
         <li class="plate-item">
           <div class="plate-info">
             <div>
@@ -75,10 +75,9 @@
               <p class="plate-price">{{ plato.precio|floatformat:"2g" }} €</p>
             </div>
           </div>
-          <img
-            class="plate-image"
-            src="https://mui.kitchen/__export/1617556782030/sites/muikitchen/img/2021/04/04/perro-caliente.jpg_402197180.jpg"
-          />
+          {% if plato.imagen %}
+          <img class="plate-image" src="{{ plato.imagen.url }}" />
+          {% endif %}
         </li>
         <hr />
         {% endfor %}
@@ -87,5 +86,6 @@
         <span>&lt; Volver</span>
       </a>
     </main>
+    {% endfor %}
   </body>
 </html>
