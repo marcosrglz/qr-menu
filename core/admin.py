@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import Menu, Categoria, Plato
+from core.models import Categoria, Menu, Plato
 
 
 class PlatoInline(admin.TabularInline):
