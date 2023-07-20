@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView
@@ -44,5 +45,7 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        data["menus"] = models.Menu.objects.filter(usuario=self.request.user)
+        data["menus"] = models.Menu.objects.filter(usuario=self.request.user).annotate(
+            plato_count=Count("categoria__plato")
+        )
         return data
