@@ -37,46 +37,46 @@
     </header>
     <main>
       {% for categoria in object.categoria_set.all %}
-      <section x-cloak x-data="{ show: false }" class="category">
-        <a class="category-name" href="#categoria-{{ categoria.id }}">{{ categoria.nombre }}</a>
-        <div 
-            id="categoria-{{ categoria.id }}" 
+        <section x-cloak x-data="{ show: false }" class="category">
+          <a class="category-name" href="#categoria-{{ categoria.id }}">{{ categoria.nombre }}</a>
+          <div
+            id="categoria-{{ categoria.id }}"
             x-show="show"
             x-init="show = window.location.hash == '#categoria-{{ categoria.id }}'"
             x-on:hashchange.window="show = window.location.hash == '#categoria-{{ categoria.id }}'"
             x-transition
             class="category-detail"
           >
-          <div class="category-content">
-            <header>
-              <h2>{{ categoria.nombre }}</h2>
-            </header>
-            <ul class="plates-list">
-              {% for plato in categoria.plato_set.all %}
+            <div class="category-content">
+              <header>
+                <h2>{{ categoria.nombre }}</h2>
+              </header>
+              <ul class="plates-list">
+                {% for plato in categoria.plato_set.all %}
                   <hr/>
-              <li class="plate-item">
-                  <div class="plate-info">
-                    <div>
-                      <p class="plate-name">{{ plato.nombre }}</p>
-                      <p class="plate-description">{{ plato.descripcion }}</p>
-                      <p class="plate-price">{{ plato.precio|floatformat:"2g" }} €</p>
+                  <li class="plate-item">
+                    <div class="plate-info">
+                      <div>
+                        <p class="plate-name">{{ plato.nombre }}</p>
+                        <p class="plate-description">{{ plato.descripcion }}</p>
+                        <p class="plate-price">{{ plato.precio|floatformat:"2g" }} €</p>
+                      </div>
                     </div>
-                  </div>
-                  {% if plato.imagen %}
-                  <img class="plate-image" src="{{ plato.imagen.url }}" />
-                  {% endif %}
-                </li>
-              {% endfor %}
-            </ul>
-            <footer>
-              <a
-                class="back-to-category"
-                href=""
-              >&lt; Volver</a>
-            </footer>
+                    {% if plato.imagen %}
+                      <img class="plate-image" src="{{ plato.imagen.url }}" />
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+              <footer>
+                <a
+                  class="back-to-category"
+                  href=""
+                >&lt; Volver</a>
+              </footer>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
       {% endfor %}
     </main>
   </body>

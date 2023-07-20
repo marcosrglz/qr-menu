@@ -1,3 +1,31 @@
+.login-page {
+  background-image: url("images/login-register-background.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.form-container {
+  max-width: 500px;
+  height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+
 .login-form {
-    
+  background-color: white;
+  padding: 3rem;
+  border-radius: 1rem;
+  box-shadow: 2px 2px 4px -2px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 2px 2px 4px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 4px -2px rgba(0,0,0,0.75);
+}
+
+.login-buttons {
+  display: flex;
+  justify-content: space-between;
 }

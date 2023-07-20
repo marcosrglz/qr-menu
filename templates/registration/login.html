@@ -1,17 +1,31 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block main_class %}login-page{% endblock %}
 
 {% block content %}
-<form class="login-form" method="post">
-  {% csrf_token %}
-  {% for field in form.visible_fields %}
-  <div class="field">
-    <label class="label">{{ field.label }}</label>
-    <div class="control">
-      {{ field }}
-    </div>
-  </div>
-  {% endfor %}
+  <div class="container form-container">
+    <form method="post" class="login-form">
+      <div class="has-text-centered mb-5">
+        <h1 class="title " >Menudiño</h1>
+      </div>
+      {% csrf_token %}
+      {% for field in form.visible_fields %}
+        <div class="field">
+          <label class="label">{{ field.label }}</label>
+          <div class="control">
+            {% render_field field class+="input" %}
+          </div>
+        </div>
+      {% endfor %}
 
-  <button type="submit">Iniciar Sesión</button>
-</form>
+      <div class="login-buttons">
+        <a class="button" href="{% url 'registrarse' %}">
+          Crear Cuenta
+        </a>
+        <button class="button is-primary" type="submit">Iniciar Sesión</button>
+      </div>
+    </form>
+    <div style="height: 20svh;"></div>
+  </div>
 {% endblock %}

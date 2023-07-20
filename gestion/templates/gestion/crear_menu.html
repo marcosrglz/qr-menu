@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<form method="POST" action={% url "gestion:crear-menu" %}>
-    {{ form }}
-    {% csrf_token %}
-    <button type="submit">Confirmar</button>
-</form>
+    <form method="POST" action={% url "gestion:crear-menu" %}>
+        {{ form }}
+        {% csrf_token %}
+        <button type="submit">Confirmar</button>
+    </form>
 
 {% endblock %}
