@@ -1,0 +1,15 @@
+{% load widget_tweaks %}
+
+<div class="field">
+    <label class="label">{{ field.label }}</label>
+    <div class="control">
+        {% render_field field class+="input" %}
+    </div>
+</div>
+<div class="my-3">
+    {% for error in field.errors %}
+        <div class="help is-danger">
+            {{ error }}
+        </div>
+    {% endfor %}
+</div>

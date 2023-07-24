@@ -1,12 +1,28 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
 
-{% block title %}Sign Up{% endblock %}
+{% block main_class %}accounts-page{% endblock %}
+{% block title %}Crear Cuenta - Menudiño{% endblock %}
 
 {% block content %}
-    <h2>Sign up</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
+    <div class="container accounts-container">
+        <form method="post" class="accounts-form">
+            <div class="has-text-centered mb-5">
+                <h1 class="title is-3">Menudiño</h1>
+            </div>
+            {% csrf_token %}
+            {% for field in form.visible_fields %}
+                {% include "partials/field.html" with field=field %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+            <div class="buttons-container-signup">
+                <button class="button is-primary" type="submit">Registrarse</button>
+                <a class="mt-2" href="{% url 'login' %}">
+                    Ya tienes cuenta?
+                </a>
+            </div>
+        </form>
+    </div>
 {% endblock %}

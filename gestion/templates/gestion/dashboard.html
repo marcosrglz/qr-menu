@@ -2,16 +2,16 @@
 
 {% block content %}
 
-    <nav class="navbar is-primary">
+    <nav class="navbar is-primary is-flex is-justify-content-space-between is-align-items-center">
         <div class="navbar-brand">
             <a class="navbar-item" href="{% url "gestion:dashboard" %}">
                 <strong>{{ request.user }}</strong>
             </a>
         </div>
-        <div class="navbar-end">
+        <div class="navbar-end is-flex">
             <div class="navbar-item">
                 {% if user.is_authenticated %}
-                    <a class="button is-danger" href="{% url 'logout' %}">
+                    <a class="button is-danger is-medium is-responsive" href="{% url 'logout' %}">
                         Cerrar Sesión
                     </a>
                 {% else %}
@@ -51,7 +51,7 @@
                         </tbody>
                     </table>
                 {% else %}
-                    <h2 class="title is-4">Aún no has creado ningún menú</h2>
+                    <h2 class="title is-5">Aún no has creado ningún menú</h2>
                 {% endif %}
                 <a class="button is-primary" href={% url "gestion:crear-menu" %}>Crear un menú</a>
             </div>

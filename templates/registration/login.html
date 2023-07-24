@@ -1,25 +1,28 @@
 {% extends 'base.html' %}
-{% load widget_tweaks %}
 
-{% block main_class %}login-page{% endblock %}
+{% block main_class %}accounts-page{% endblock %}
+{% block title %}Iniciar Sesión - Menudiño{% endblock %}
 
 {% block content %}
-  <div class="container form-container">
-    <form method="post" class="login-form">
+  <div class="container accounts-container">
+    <form method="post" class="accounts-form">
       <div class="has-text-centered mb-5">
-        <h1 class="title " >Menudiño</h1>
+        <h1 class="title is-3" >Menudiño</h1>
       </div>
       {% csrf_token %}
       {% for field in form.visible_fields %}
-        <div class="field">
-          <label class="label">{{ field.label }}</label>
-          <div class="control">
-            {% render_field field class+="input" %}
-          </div>
-        </div>
+        {% include "partials/field.html" with field=field %}
       {% endfor %}
 
-      <div class="login-buttons">
+      <div class="my-3">
+        {% for error in form.non_field_errors %}
+          <div class="help is-danger">
+            {{ error }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="buttons-container-login">
         <a class="button" href="{% url 'registrarse' %}">
           Crear Cuenta
         </a>
