@@ -9,25 +9,55 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap"
-      rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap"
+        rel="stylesheet"
     />
     <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'normalize.css' %}"
+        rel="stylesheet"
+        type="text/css"
+        href="{% static 'normalize.css' %}"
     />
     <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'dashboard.css' %}"
+        rel="stylesheet"
+        type="text/css"
+        href="{% static 'dashboard.css' %}"
+    />
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="{% static 'create_menu.css' %}"
     />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  </head>
-  <body>
-    <main>
-      {% block content %}
-      {% endblock %}
+</head>
+<body>
+    <nav class="navbar is-primary is-flex is-justify-content-space-between is-align-items-center">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="{% url "gestion:dashboard" %}">
+                <strong>{{ request.user }}</strong>
+            </a>
+        </div>
+        <div class="navbar-end is-flex">
+            <div class="navbar-item">
+                {% if user.is_authenticated %}
+                    <a class="button is-danger" href="{% url 'logout' %}">
+                        Cerrar Sesión
+                    </a>
+                {% else %}
+                    <div class="buttons">
+                        <a class="button is-primary" href="{% url 'register' %}">
+                            <strong>Crear Cuenta</strong>
+                        </a>
+                        <a class="button is-light" href="{% url 'login' %}">
+                            Iniciar Sesión
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <main class="{% block main_class %}{% endblock %}">
+        {% block content %}
+        {% endblock %}
     </main>
-  </body>
+</body>
 </html>
