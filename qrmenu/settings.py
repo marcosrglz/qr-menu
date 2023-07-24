@@ -36,6 +36,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    "widget_tweaks",
     "debug_toolbar",
     "core",
     "cuentas",
