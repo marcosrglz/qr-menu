@@ -1,11 +1,29 @@
 {% extends 'gestion_layout.html' %}
 
+{% block main_class %}create-menu-page{% endblock %}
+{% block title %}Crear Menú - Menudiño{% endblock %}
+
 {% block content %}
 
+<<<<<<< Updated upstream
 <form method="POST" action={% url "gestion:crear-menu" %}>
     {{ form }}
     {% csrf_token %}
     <button type="submit">Confirmar</button>
 </form>
+=======
+    <div class="container create-menu-container">
+        <form method="POST" action={% url "gestion:crear-menu" %} class="create-menu-form">
+            {% csrf_token %}
+            {% for field in form.visible_fields %}
+                {% include "partials/field.html" with field=field %}
+            {% endfor %}
+            <div class="is-flex is-justify-content-center">
+                <button type="submit" class="button is-primary">Confirmar</button>
+            </div>
+        </form>
+        <div style="height: 20svh;"></div>
+    </div>
+>>>>>>> Stashed changes
 
 {% endblock %}
