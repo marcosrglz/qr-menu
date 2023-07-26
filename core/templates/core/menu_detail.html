@@ -47,34 +47,34 @@
             x-transition
             class="category-detail"
           >
-            <div class="category-content">
-              <header>
-                <h2>{{ categoria.nombre }}</h2>
-              </header>
-              <ul class="plates-list">
-                {% for plato in categoria.plato_set.all %}
-                  <hr/>
-                  <li class="plate-item">
-                    <div class="plate-info">
-                      <div>
-                        <p class="plate-name">{{ plato.nombre }}</p>
-                        <p class="plate-description">{{ plato.descripcion }}</p>
-                        <p class="plate-price">{{ plato.precio|floatformat:"2g" }} €</p>
-                      </div>
+            <header>
+              <h2>{{ categoria.nombre }}</h2>
+            </header>
+            <ul class="dish-list">
+              {% for plato in categoria.plato_set.all %}
+              {% if loop.counter > 0 %}
+                <hr/> 
+              {% endif %}
+                <li class="dish-item">
+                  <div class="dish-info">
+                    <div>
+                      <p class="dish-name">{{ plato.nombre }}</p>
+                      <p class="dish-description">{{ plato.descripcion }}</p>
+                      <p class="dish-price">{{ plato.precio|floatformat:"2g" }} €</p>
                     </div>
-                    {% if plato.imagen %}
-                      <img class="plate-image" src="{{ plato.imagen.url }}" />
-                    {% endif %}
-                  </li>
-                {% endfor %}
-              </ul>
-              <footer>
-                <a
-                  class="back-to-category"
-                  href=""
-                >&lt; Volver</a>
-              </footer>
-            </div>
+                  </div>
+                  {% if plato.imagen %}
+                    <img class="dish-image" src="{{ plato.imagen.url }}" />
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+            <footer>
+              <a
+                class="back-to-category"
+                href=""
+              >&lt; Volver</a>
+            </footer>
           </div>
         </section>
       {% endfor %}
