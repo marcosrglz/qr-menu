@@ -1,0 +1,1 @@
+sass sass:static/dist -s compressed --watch
