@@ -23,6 +23,8 @@
                                     <td>Publicado</td>
                                     <td>
                                         <a href={% url "core:menu-detail" menu.pk %}>Ver</a>
+                                        <span> | </span>
+                                        <a href={% url "gestion:editar-menu" menu.pk %}>Editar</a>
                                     </td>
                                 </tr>
                             {% endfor %}
