@@ -27,5 +27,5 @@ urlpatterns = [
     path("cuentas/", include("django.contrib.auth.urls")),
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path("menus/", include("core.urls")),
-    path("r/", include("gestion.urls")),
+    path("panel/", include("gestion.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

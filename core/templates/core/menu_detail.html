@@ -52,9 +52,9 @@
             </header>
             <ul class="dish-list">
               {% for plato in categoria.plato_set.all %}
-              {% if loop.counter > 0 %}
-                <hr/> 
-              {% endif %}
+                {% if loop.counter > 0 %}
+                  <hr/>
+                {% endif %}
                 <li class="dish-item">
                   <div class="dish-info">
                     <div>

@@ -1,14 +1,14 @@
 {% extends 'gestion_layout.html' %}
 
 {% block main_class %}create-menu-page{% endblock %}
-{% block title %}Crear Menú | Menudiño{% endblock %}
+{% block title %}Crear Categoría | Menudiño{% endblock %}
 
 {% block content %}
 
     <div
         class="container is-flex is-flex-direction-column is-justify-content-center is-align-content-center my-6"
         style="width: 350px;">
-        <form method="POST" action={% url "gestion:crear-menu" %} class="create-menu-form">
+        <form method="POST" action={% url "gestion:crear-categoria" menu.pk %} class="create-menu-form">
             {% csrf_token %}
             {% for field in form.visible_fields %}
                 {% include "partials/field.html" with field=field %}
