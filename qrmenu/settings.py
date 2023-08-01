@@ -143,5 +143,5 @@ INTERNAL_IPS = [
 ]
 
 # Form Redirect
-LOGIN_REDIRECT_URL = "/r/dashboard"
+LOGIN_REDIRECT_URL = "/panel"
 LOGOUT_REDIRECT_URL = "/cuentas/login"
