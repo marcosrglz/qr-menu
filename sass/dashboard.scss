@@ -1,3 +1,55 @@
+[x-cloak] { display: none !important; }
+
+html, body {
+    font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+    z-index: 0 !important;
+}
+
+.relative {
+    position: relative;
+}
+
+.pruebas {
+    position: fixed;
+    width: 100svw;
+    height: 100svh;
+    top: 0;
+    left: 0;
+    background-color: rgba(85, 85, 85, 0.5);
+    z-index: 30000;
+}
+
+.delete-menu-container {
+    position: fixed;
+    width: 100svw;
+    height: 100svh;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(85, 85, 85, 0.5);
+    z-index: 30000;
+}
+
+.delete-menu-form {
+    text-align: center;
+    width: 300px;
+    color: rgb(31, 31, 31);
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+
+    p {
+        margin-bottom: 10px;
+    }
+
+}
+
 table, td, th {
     text-align: left;
     width: 650px;

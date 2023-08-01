@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
 from django.urls import reverse_lazy
 from django.views import generic
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from core import models
 
@@ -49,7 +49,7 @@ class MenuCreateView(LoginRequiredMixin, CreateView):
                 "label": "Crear Menú",
                 "href": reverse_lazy("gestion:crear-menu"),
                 "active": True,
-            }
+            },
         ]
         return context
 
@@ -86,11 +86,21 @@ class MenuEditView(LoginRequiredMixin, UpdateView):
             },
             {
                 "label": self.get_object().nombre,
-                "href": reverse_lazy("gestion:editar-menu", args=[self.get_object().pk]),  # noqa: E501
+                "href": reverse_lazy(
+                    "gestion:editar-menu", args=[self.get_object().pk]
+                ),  # noqa: E501
                 "active": True,
-            }
+            },
         ]
         return data
+
+
+class MenuDeleteView(LoginRequiredMixin, DeleteView):
+    model = models.Menu
+    success_url = reverse_lazy("gestion:dashboard")
+
+    def get_queryset(self):
+        return models.Menu.objects.filter(usuario=self.request.user)
 
 
 # Categoría
@@ -105,8 +115,7 @@ class CategoriaCreateForm(forms.ModelForm):
 
     def save(self, commit=True):
         return models.Categoria.objects.create(
-            nombre=self.cleaned_data["nombre"],
-            menu=self.menu
+            nombre=self.cleaned_data["nombre"], menu=self.menu
         )
 
 
@@ -136,19 +145,26 @@ class CategoriaCreateView(LoginRequiredMixin, UpdateView):
             },
             {
                 "label": self.get_object().nombre,
-                "href": reverse_lazy("gestion:editar-menu", args=[self.get_object().pk]),  # noqa: E501
+                "href": reverse_lazy(
+                    "gestion:editar-menu", args=[self.get_object().pk]
+                ),  # noqa: E501
                 "active": False,
             },
             {
                 "label": "Crear categoría",
-                "href": reverse_lazy("gestion:crear-categoria", args=[self.get_object().pk]),  # noqa: E501
+                "href": reverse_lazy(
+                    "gestion:crear-categoria", args=[self.get_object().pk]
+                ),  # noqa: E501
                 "active": True,
-            }
+            },
         ]
         return data
 
     def get_success_url(self):
         return reverse_lazy("gestion:editar-menu", args=[self.get_object().pk])
+
+
+# Platos
 
 
 # Dashboard del usuario
