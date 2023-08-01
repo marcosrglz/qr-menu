@@ -25,8 +25,8 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     </head>
     <body>
-        <nav class="navbar is-primary is-flex is-justify-content-space-between is-align-items-center">
-            <div class="navbar-brand">
+        <nav class="navbar is-primary is-flex is-justify-content-space-evenly is-align-items-center">
+            <div class="navbar-brand is-flex-grow-1">
                 <a class="navbar-item" href="{% url "gestion:dashboard" %}">
                     <strong>{{ request.user }}</strong>
                 </a>
@@ -48,6 +48,17 @@
                         </div>
                     {% endif %}
                 </div>
+            </div>
+        </nav>
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <div class="container mx-1">
+                <ul>
+                    {% for breadcrumb in breadcrumbs %}
+                        <li class="{% if breadcrumb.active %}is-active{% endif %}">
+                            <a href="{{ breadcrumb.href }}">{{ breadcrumb.label }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         </nav>
         <main class="{% block main_class %}{% endblock %}">

@@ -4,40 +4,58 @@
 {% block title %}Editar Menú | Menudiño{% endblock %}
 
 {% block content %}
-
-<section class="section">
-    <div class="table-container">
-        {% if object.categoria_set %}
-            <table class="table is-stripped">
-                <thead>
-                    <tr>
-                        <th style="width: 300px;">Nombre</th>
-                        <th>Platos</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for categoria in object.categoria_set.all %}
+<div class="editar-menu-desktop">
+    <section class="section is-flex is-flex-direction-column is-align-items-center is-flex-grow-2">
+        <div
+        class="container is-flex is-flex-direction-column is-justify-content-center is-align-content-center"
+        style="width: 320px;">
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form.visible_fields %}
+                    {% include "partials/field.html" with field=field %}
+                {% endfor %}
+                <div class="is-flex is-justify-content-center" style="gap: 1rem;">
+                    <a href={% url "gestion:dashboard" %} class="button">Cancelar</a>
+                    <button type="submit" class="button is-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="section is-flex is-flex-direction-column is-align-items-center is-flex-grow-2">
+        <div class="table-container">
+            {% if object.categoria_set %}
+                <table class="table is-stripped">
+                    <thead>
                         <tr>
-                            <td>{{ categoria.nombre }}</td>
-                            <td>{{ categoria.plato }}</td>
-                            <td>Visible</td>
-                            <td>
-                                <a href={% url "core:menu-detail" menu.pk %}>Ver</a>
-                                <span> | </span>
-                                <a href={% url "gestion:editar-menu" menu.pk %}>Editar</a>
-                            </td>
+                            <th>Nombre</th>
+                            <th>Platos</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <h2 class="title is-5">Aún no has creado ninguna categoría</h2>
-        {% endif %}
-        <a class="button" href={% url "gestion:dashboard" %}>Volver al panel</a>
-        <a class="button is-primary" href={% url "gestion:crear-categoria" menu.pk %}>Crear categoría</a>
-    </div>
-</section>
+                    </thead>
+                    <tbody>
+                        {% for categoria in object.categoria_set.all %}
+                            <tr>
+                                <td>{{ categoria.nombre }}</td>
+                                <td>{{ categoria.plato }}</td>
+                                <td>Visible</td>
+                                <td>
+                                    <a href={% url "core:menu-detail" menu.pk %}>Ver</a>
+                                    <a href={% url "gestion:editar-menu" menu.pk %}>Editar</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <h2 class="title is-5">Aún no has creado ninguna categoría</h2>
+            {% endif %}
+        </div>
+        <div class="edit-buttons-container">
+            <a class="button" href={% url "gestion:dashboard" %}>Volver al panel</a>
+            <a class="button is-primary" href={% url "gestion:crear-categoria" menu.pk %}>Crear categoría</a>
+        </div>
+    </section>
+</div>
 
 {% endblock %}

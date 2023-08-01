@@ -9,7 +9,7 @@
                     <table class="table is-stripped">
                         <thead>
                             <tr>
-                                <th style="width: 300px;">Nombre</th>
+                                <th>Nombre</th>
                                 <th>Platos</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
@@ -23,7 +23,6 @@
                                     <td>Publicado</td>
                                     <td>
                                         <a href={% url "core:menu-detail" menu.pk %}>Ver</a>
-                                        <span> | </span>
                                         <a href={% url "gestion:editar-menu" menu.pk %}>Editar</a>
                                     </td>
                                 </tr>
@@ -33,8 +32,8 @@
                 {% else %}
                     <h2 class="title is-5">Aún no has creado ningún menú</h2>
                 {% endif %}
-                <a class="button is-primary" href={% url "gestion:crear-menu" %}>Crear un menú</a>
             </div>
+            <a class="button is-primary" href={% url "gestion:crear-menu" %}>Crear un menú</a>
         </section>
     {% endif %}
 
