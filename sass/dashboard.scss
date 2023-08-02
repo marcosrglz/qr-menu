@@ -12,16 +12,6 @@ html, body {
     position: relative;
 }
 
-.pruebas {
-    position: fixed;
-    width: 100svw;
-    height: 100svh;
-    top: 0;
-    left: 0;
-    background-color: rgba(85, 85, 85, 0.5);
-    z-index: 30000;
-}
-
 .delete-menu-container {
     position: fixed;
     width: 100svw;
@@ -53,7 +43,7 @@ html, body {
 table, td, th {
     text-align: left;
     width: 650px;
-    padding:5px;
+    padding: 10px;
 }
 
 .edit-buttons-container {
