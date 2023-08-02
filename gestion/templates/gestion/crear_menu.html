@@ -4,21 +4,19 @@
 {% block title %}Crear Menú | Menudiño{% endblock %}
 
 {% block content %}
-
     <div
         class="container is-flex is-flex-direction-column is-justify-content-center is-align-content-center my-6"
         style="width: 350px;">
-        <form method="POST" action={% url "gestion:crear-menu" %} class="create-menu-form">
+        <form method="POST" action="{% url 'gestion:crear-menu' %}" class="create-menu-form">
             {% csrf_token %}
             {% for field in form.visible_fields %}
                 {% include "partials/field.html" with field=field %}
             {% endfor %}
             <div class="is-flex is-justify-content-center" style="gap: 2rem;">
-                <a href={% url "gestion:dashboard" %} class="button">Cancelar</a>
+                <a href="{% url 'gestion:dashboard' %}" class="button">Cancelar</a>
                 <button type="submit" class="button is-primary">Confirmar</button>
             </div>
         </form>
         <div style="height: 20svh;"></div>
     </div>
-
 {% endblock %}

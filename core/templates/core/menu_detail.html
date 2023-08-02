@@ -36,7 +36,7 @@
       <h1 class="menu-title">{{ object.nombre }}</h1>
     </header>
     <main>
-      {% for categoria in object.categoria_set.all <%}
+      {% for categoria in object.categoria_set.all %}
         <section x-cloak x-data="{ show: false }" class="category">
           <a class="category-name" href="#categoria-{{ categoria.id }}">{{ categoria.nombre }}</a>
           <div
