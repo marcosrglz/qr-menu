@@ -1,13 +1,13 @@
 {% extends 'gestion_layout.html' %}
 
 {% block main_class %}create-menu-page{% endblock %}
-{% block title %}Editar Menú | Menudiño{% endblock %}
+{% block title %}Editar Categoría | Menudiño{% endblock %}
 
 {% block content %}
     <div class="editar-menu-desktop">
-        <section class="section is-flex is-flex-direction-column is-align-items-center is-flex-grow-2">
+        <section class="section is-flex is-flex-direction-column is-flex-grow-2">
             <div
-                class="container is-flex is-flex-direction-column is-justify-content-center is-align-content-center"
+                class="container is-flex is-flex-direction-column "
                 style="width: 320px;">
                 <form method="POST">
                     {% csrf_token %}
@@ -23,24 +23,26 @@
         </section>
         <section class="section is-flex is-flex-direction-column is-align-items-center is-flex-grow-2">
             <div class="table-container">
-                {% if object.categoria_set %}
+                {% if object %}
                     <table class="table is-stripped">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
-                                <th>Platos</th>
+                                <th>Descripcion</th>
+                                <th>Precio</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for categoria in object.categoria_set.all %}
+                            {% for plato in object.plato_set.all %}
                                 <tr>
-                                    <td>{{ categoria.nombre }}</td>
-                                    <td>{{ categoria.plato }}</td>
+                                    <td>{{ plato.nombre }}</td>
+                                    <td>{{ plato.descripcion }}</td>
+                                    <td>{{ plato.precio|floatformat:"2g" }} €</td>
                                     <td>Visible</td>
                                     <td>
-                                        <a href="{% url 'core:menu-detail' menu.pk %}#categoria-{{ categoria.pk }}">Ver</a>
+                                        <a href="{% url 'core:menu-detail' categoria.menu.pk %}">Ver</a>
                                         <a href="{% url 'gestion:editar-categoria' categoria.pk %}">Editar</a>
                                     </td>
                                 </tr>
@@ -53,7 +55,7 @@
             </div>
             <div class="edit-buttons-container">
                 <a class="button" href="{% url 'gestion:dashboard' %}">Volver al panel</a>
-                <a class="button is-primary" href="{% url 'gestion:crear-categoria' menu.pk %}">Crear categoría</a>
+
             </div>
         </section>
     </div>

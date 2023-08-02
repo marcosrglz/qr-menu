@@ -61,7 +61,7 @@ class MenuUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["descripcion"].widget = forms.TextInput()
+        self.fields["descripcion"].widget = forms.Textarea()
 
 
 class MenuEditView(LoginRequiredMixin, UpdateView):
@@ -147,14 +147,14 @@ class CategoriaCreateView(LoginRequiredMixin, UpdateView):
                 "label": self.get_object().nombre,
                 "href": reverse_lazy(
                     "gestion:editar-menu", args=[self.get_object().pk]
-                ),  # noqa: E501
+                ),
                 "active": False,
             },
             {
                 "label": "Crear categoría",
                 "href": reverse_lazy(
                     "gestion:crear-categoria", args=[self.get_object().pk]
-                ),  # noqa: E501
+                ),
                 "active": True,
             },
         ]
@@ -171,7 +171,6 @@ class CategoriaUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["descripcion"].widget = forms.TextInput()
 
 
 class CategoriaEditView(LoginRequiredMixin, UpdateView):
@@ -181,10 +180,35 @@ class CategoriaEditView(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy("login")
 
     def get_queryset(self):
-        return models.Menu.objects.filter(usuario=self.request.user)
+        return models.Categoria.objects.filter(menu__usuario=self.request.user)
 
     def get_success_url(self):
-        return reverse_lazy("gestion:editar-menu", args=[self.get_object().pk])
+        return reverse_lazy("gestion:editar-categoria", args=[self.get_object().pk])
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data["breadcrumbs"] = [
+            {
+                "label": "Panel",
+                "href": reverse_lazy("gestion:dashboard"),
+                "active": False,
+            },
+            {
+                "label": self.get_object().menu.nombre,
+                "href": reverse_lazy(
+                    "gestion:editar-menu", args=[self.get_object().menu.pk]
+                ),
+                "active": False,
+            },
+            {
+                "label": self.get_object().nombre,
+                "href": reverse_lazy(
+                    "gestion:editar-categoria", args=[self.get_object().pk]
+                ),
+                "active": True,
+            },
+        ]
+        return data
 
 
 # Platos
