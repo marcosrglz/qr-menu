@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    {% if user.is_authenticated %}
+    <div x-cloak x-data="{ deleteURL: '' }">
         <section class="section dashboard-section">
             <div class="table-container relative">
                 {% if menus %}
@@ -21,34 +21,32 @@
                                     <td>{{ menu.nombre }}</td>
                                     <td>{{ menu.plato_count }}</td>
                                     <td>Publicado</td>
-                                    <td x-cloak x-data="{ open: false }">
-                                        <a href={% url "core:menu-detail" menu.pk %}>Ver</a>
-                                        <a href={% url "gestion:editar-menu" menu.pk %}>Editar</a>
-                                        <a x-on:click="open = true" href="#menu-{{ menu.pk }}">Eliminar</a>
-                                        <div x-show="open" class="delete-menu-container">
-                                            <form
-                                                class="delete-menu-form"
-                                                method="POST"
-                                                action={% url "gestion:eliminar-menu" menu.pk %}>
-                                                    {% csrf_token %}
-                                                    <p>Seguro que quieres eliminar <br /> {{ menu.nombre }}?</p>
-                                                    <input x-on:click="open=false" type="button" value="Cancelar" class="button" />
-                                                    <input type="submit" value="confirmar" class="button is-primary" />
-                                            </form>
-                                        </div>
+                                    <td>
+                                        <a href="{% url 'core:menu-detail' menu.pk %}">Ver</a>
+                                        <a href="{% url 'gestion:editar-menu' menu.pk %}">Editar</a>
+                                        <a x-on:click="deleteURL = '{% url 'gestion:eliminar-menu' menu.pk %}'">Eliminar</a>
                                     </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    {% else %}
+                {% else %}
                     <h2 class="title is-5">Aún no has creado ningún menú</h2>
-                    {% endif %}
-                    <div class="pruebas">
-                    </div>
-                </div>
-                <a class="button is-primary" href={% url "gestion:crear-menu" %}>Crear un menú</a>
-            </section>
-            {% endif %}
-
+                {% endif %}
+            </div>
+            <a class="button is-primary" href={% url "gestion:crear-menu" %}>Crear un menú</a>
+        </section>
+        <div x-show="deleteURL != ''" class="delete-menu-container" x-on:keyup.window.escape="deleteURL = ''">
+            <form
+                class="delete-menu-form"
+                method="POST"
+                x-bind:action="deleteURL"
+                x-on:click.outside="deleteURL = ''">
+                {% csrf_token %}
+                <p>Seguro que quieres eliminar el menú?</p>
+                <input x-on:click="deleteURL = ''" type="button" value="Cancelar" class="button" />
+                <input type="submit" value="confirmar" class="button is-primary" />
+            </form>
+        </div>
+    </div>
 {% endblock %}

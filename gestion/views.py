@@ -30,7 +30,7 @@ class MenuCreateView(LoginRequiredMixin, CreateView):
     form_class = MenuCreateForm
     template_name = "gestion/crear_menu.html"
     success_url = reverse_lazy("gestion:dashboard")
-    login_url = reverse_lazy("auth:login")
+    login_url = reverse_lazy("login")
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -68,7 +68,7 @@ class MenuEditView(LoginRequiredMixin, UpdateView):
     model = models.Menu
     form_class = MenuUpdateForm
     template_name = "gestion/editar_menu.html"
-    login_url = reverse_lazy("auth:login")
+    login_url = reverse_lazy("login")
 
     def get_queryset(self):
         return models.Menu.objects.filter(usuario=self.request.user)
@@ -123,7 +123,7 @@ class CategoriaCreateView(LoginRequiredMixin, UpdateView):
     model = models.Menu
     form_class = CategoriaCreateForm
     template_name = "gestion/crear_categoria.html"
-    login_url = reverse_lazy("auth:login")
+    login_url = reverse_lazy("login")
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -159,6 +159,29 @@ class CategoriaCreateView(LoginRequiredMixin, UpdateView):
             },
         ]
         return data
+
+    def get_success_url(self):
+        return reverse_lazy("gestion:editar-menu", args=[self.get_object().pk])
+
+
+class CategoriaUpdateForm(forms.ModelForm):
+    class Meta:
+        model = models.Categoria
+        fields = ["nombre"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["descripcion"].widget = forms.TextInput()
+
+
+class CategoriaEditView(LoginRequiredMixin, UpdateView):
+    model = models.Categoria
+    form_class = CategoriaUpdateForm
+    template_name = "gestion/editar_categoria.html"
+    login_url = reverse_lazy("login")
+
+    def get_queryset(self):
+        return models.Menu.objects.filter(usuario=self.request.user)
 
     def get_success_url(self):
         return reverse_lazy("gestion:editar-menu", args=[self.get_object().pk])
