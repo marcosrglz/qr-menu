@@ -51,9 +51,9 @@
                 </div>
             </div>
         </nav>
-        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <nav class="breadcrumb" aria-label="breadcrumbs" style="overflow: auto; overflow-y: hidden;">
             <div class="container mx-2 my-2">
-                <ul>
+                <ul style="flex-wrap: nowrap !important;">
                     {% for breadcrumb in breadcrumbs %}
                         <li class="{% if breadcrumb.active %}is-active{% endif %}">
                             <a href="{{ breadcrumb.href }}">{{ breadcrumb.label }}</a>

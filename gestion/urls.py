@@ -1,16 +1,18 @@
 from django.urls import path
 
-from gestion.views import (  # noqa:E501
+from gestion.views import (
     CategoriaCreateView,
     CategoriaEditView,
     DashboardView,
     MenuCreateView,
     MenuDeleteView,
     MenuEditView,
+    PlatoCreateView,
 )
 
 app_name = "gestion"
 urlpatterns = [
+    path("", DashboardView.as_view(), name="dashboard"),
     path("crear-menu/", MenuCreateView.as_view(), name="crear-menu"),
     path("editar-menu/<int:pk>/", MenuEditView.as_view(), name="editar-menu"),
     path(
@@ -18,11 +20,15 @@ urlpatterns = [
         CategoriaCreateView.as_view(),
         name="crear-categoria",
     ),
-    path("", DashboardView.as_view(), name="dashboard"),
     path("eliminar-menu/<int:pk>", MenuDeleteView.as_view(), name="eliminar-menu"),
     path(
-        "editar-categoria/<int:pk>",
+        "categoria/<int:pk>",
         CategoriaEditView.as_view(),
         name="editar-categoria",
+    ),
+    path(
+        "editar-categoria/<int:pk>/crear-plato",
+        PlatoCreateView.as_view(),
+        name="crear-plato",
     ),
 ]

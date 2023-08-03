@@ -6,6 +6,7 @@
 {% block content %}
     <div class="editar-menu-desktop">
         <section class="section is-flex is-flex-direction-column is-flex-grow-2">
+            <h3 class="title">Categoría</h3>
             <div
                 class="container is-flex is-flex-direction-column "
                 style="width: 320px;">
@@ -21,16 +22,17 @@
                 </form>
             </div>
         </section>
-        <section class="section is-flex is-flex-direction-column is-align-items-center is-flex-grow-2">
+        <section class="section ">
             <div class="table-container">
-                {% if object %}
-                    <table class="table is-stripped">
+                <h3 class="title px-2">Platos</h3>
+                {% if object.plato_set.count > 0 %}
+                    <table class="table is-stripped" style="width: fit-content;">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
+                                <th style="min-width:200px;">Nombre</th>
                                 <th>Descripcion</th>
-                                <th>Precio</th>
-                                <th>Estado</th>
+                                <th style="text-align: right;">Precio</th>
+                                <th style="text-align: center">Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -38,24 +40,26 @@
                             {% for plato in object.plato_set.all %}
                                 <tr>
                                     <td>{{ plato.nombre }}</td>
-                                    <td>{{ plato.descripcion }}</td>
-                                    <td>{{ plato.precio|floatformat:"2g" }} €</td>
-                                    <td>Visible</td>
-                                    <td>
-                                        <a href="{% url 'core:menu-detail' categoria.menu.pk %}">Ver</a>
-                                        <a href="{% url 'gestion:editar-categoria' categoria.pk %}">Editar</a>
+                                    <td style="min-width: 200px;">{{ plato.descripcion }}</td>
+                                    <td style="text-align: right;">{{ plato.precio|floatformat:"2g" }} €</td>
+                                    <td style="text-align: center">Visible</td>
+                                    <td style="width: fit-content;">
+                                        <div style="display:flex; gap:1rem;">
+                                            <a href="{% url 'core:menu-detail' categoria.menu.pk %}">Ver</a>
+                                            <a href="{% url 'gestion:editar-categoria' categoria.pk %}">Editar</a>
+                                        </div>
                                     </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 {% else %}
-                    <h2 class="title is-5">Aún no has creado ninguna categoría</h2>
+                    <h2 class="title is-5">Aún no has creado ningún plato</h2>
                 {% endif %}
             </div>
             <div class="edit-buttons-container">
                 <a class="button" href="{% url 'gestion:dashboard' %}">Volver al panel</a>
-
+                <a class="button is-primary" href="{% url 'gestion:crear-plato' categoria.pk %}">Crear plato</a>
             </div>
         </section>
     </div>

@@ -6,10 +6,11 @@
         <section class="section dashboard-section">
             <div class="table-container relative">
                 {% if menus %}
-                    <table class="table is-stripped">
+                <h3 class="title px-2">Menús</h3>
+                    <table class="table is-stripped" style="width: fit-content;">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
+                                <th style="min-width:200px;">Nombre</th>
                                 <th>Platos</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
@@ -21,10 +22,12 @@
                                     <td>{{ menu.nombre }}</td>
                                     <td>{{ menu.plato_count }}</td>
                                     <td>Publicado</td>
-                                    <td>
-                                        <a href="{% url 'core:menu-detail' menu.pk %}">Ver</a>
-                                        <a href="{% url 'gestion:editar-menu' menu.pk %}">Editar</a>
-                                        <a x-on:click="deleteURL = '{% url 'gestion:eliminar-menu' menu.pk %}'">Eliminar</a>
+                                    <td style="width: fit-content;">
+                                        <div style="display:flex; gap:1rem;">
+                                            <a href="{% url 'core:menu-detail' menu.pk %}">Ver</a>
+                                            <a href="{% url 'gestion:editar-menu' menu.pk %}">Editar</a>
+                                            <a x-on:click="deleteURL = '{% url 'gestion:eliminar-menu' menu.pk %}'">Eliminar</a>
+                                        </div>
                                     </td>
                                 </tr>
                             {% endfor %}
