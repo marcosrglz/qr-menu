@@ -180,7 +180,9 @@ class CategoriaEditView(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy("login")
 
     def get_queryset(self):
-        return models.Categoria.objects.filter(menu__usuario=self.request.user)
+        return models.Categoria.objects.filter(
+            menu__usuario=self.request.user
+        ).select_related("menu__usuario")
 
     def get_success_url(self):
         return reverse_lazy("gestion:editar-categoria", args=[self.get_object().pk])
@@ -212,6 +214,75 @@ class CategoriaEditView(LoginRequiredMixin, UpdateView):
 
 
 # Platos
+class PlatoCreateForm(forms.ModelForm):
+    class Meta:
+        model = models.Plato
+        fields = ["nombre", "descripcion", "precio"]
+
+    def __init__(self, *args, categoria, **kwargs):
+        self.categoria = categoria
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        return models.Plato.objects.create(
+            nombre=self.cleaned_data["nombre"],
+            descripcion=self.cleaned_data["descripcion"],
+            precio=self.cleaned_data["precio"],
+            categoria=self.categoria,
+        )
+
+
+class PlatoCreateView(LoginRequiredMixin, UpdateView):
+    model = models.Categoria
+    form_class = PlatoCreateForm
+    template_name = "gestion/crear_plato.html"
+    login_url = reverse_lazy("login")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["instance"] = models.Plato()
+        kwargs["categoria"] = self.get_object()
+        return kwargs
+
+    def get_queryset(self):
+        return models.Categoria.objects.filter(
+            menu__usuario=self.request.user
+        ).select_related("menu__usuario")
+
+    def get_success_url(self):
+        return reverse_lazy("gestion:editar-categoria", args=[self.get_object().pk])
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data["breadcrumbs"] = [
+            {
+                "label": "Panel",
+                "href": reverse_lazy("gestion:dashboard"),
+                "active": False,
+            },
+            {
+                "label": self.get_object().menu.nombre,
+                "href": reverse_lazy(
+                    "gestion:editar-menu", args=[self.get_object().pk]
+                ),
+                "active": False,
+            },
+            {
+                "label": self.get_object().nombre,
+                "href": reverse_lazy(
+                    "gestion:editar-categoria", args=[self.get_object().pk]
+                ),
+                "active": False,
+            },
+            {
+                "label": "Crear plato",
+                "href": reverse_lazy(
+                    "gestion:editar-categoria", args=[self.get_object().pk]
+                ),
+                "active": False,
+            },
+        ]
+        return data
 
 
 # Dashboard del usuario

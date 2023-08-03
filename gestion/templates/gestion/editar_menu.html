@@ -5,9 +5,10 @@
 
 {% block content %}
     <div class="editar-menu-desktop">
-        <section class="section is-flex is-flex-direction-column is-align-items-center is-flex-grow-2">
+        <section class="section is-flex is-flex-direction-column is-flex-grow-2">
+            <h3 class="title">Menú</h3>
             <div
-                class="container is-flex is-flex-direction-column is-justify-content-center is-align-content-center"
+                class="container is-flex is-flex-direction-column is-align-content-center"
                 style="width: 320px;">
                 <form method="POST">
                     {% csrf_token %}
@@ -23,11 +24,12 @@
         </section>
         <section class="section is-flex is-flex-direction-column is-align-items-center is-flex-grow-2">
             <div class="table-container">
-                {% if object.categoria_set %}
-                    <table class="table is-stripped">
+                <h3 class="title px-2">Categorías</h3>
+                {% if object.categoria_set.count > 0 %}
+                    <table class="table is-stripped" style="width: fit-content;">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
+                                <th style="min-width:200px;">Nombre</th>
                                 <th>Platos</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
@@ -39,9 +41,11 @@
                                     <td>{{ categoria.nombre }}</td>
                                     <td>{{ categoria.plato }}</td>
                                     <td>Visible</td>
-                                    <td>
-                                        <a href="{% url 'core:menu-detail' menu.pk %}#categoria-{{ categoria.pk }}">Ver</a>
-                                        <a href="{% url 'gestion:editar-categoria' categoria.pk %}">Editar</a>
+                                    <td style="width: fit-content;">
+                                        <div style="display:flex; gap:1rem;">
+                                            <a href="{% url 'core:menu-detail' menu.pk %}#categoria-{{ categoria.pk }}">Ver</a>
+                                            <a href="{% url 'gestion:editar-categoria' categoria.pk %}">Editar</a>
+                                        </div>
                                     </td>
                                 </tr>
                             {% endfor %}
