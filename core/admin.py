@@ -15,7 +15,8 @@ class MenuInline(admin.TabularInline):
 
 class MenuAdmin(admin.ModelAdmin):
     readonly_fields = ["id", "creado", "modificado"]
-    list_display = ["id", "nombre", "usuario", "creado", "modificado"]
+    list_display = ["id", "nombre", "usuario", "estado", "creado", "modificado"]
+    list_filter = ["estado"]
     search_fields = ["nombre", "usuario"]
 
 

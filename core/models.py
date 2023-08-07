@@ -15,6 +15,10 @@ class Menu(BaseModel):
     codigo = models.UUIDField("Codigo", default=uuid4, null=False)
     nombre = models.CharField("Nombre", max_length=50)
     descripcion = models.TextField("Descripción")
+    estado = models.CharField("Estado", max_length=100, default="oculto", choices=[
+        ("publicado", "Publicado"),
+        ("oculto", "Oculto")
+    ])
     usuario = models.ForeignKey(
         settings.AUTH_USER_MODEL, verbose_name="usuario", on_delete=models.PROTECT
     )

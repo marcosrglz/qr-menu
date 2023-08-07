@@ -10,7 +10,7 @@ class MenuView(generic.DetailView):
     slug_url_kwarg = "codigo"
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().filter(estado="publicado")
         queryset = queryset.select_related("usuario")
         return queryset
 
