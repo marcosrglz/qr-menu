@@ -29,6 +29,7 @@
                                             <a href="{% url 'core:menu-detail' menu.codigo %}">Ver</a>
                                             <a href="{% url 'gestion:editar-menu' menu.pk %}">Editar</a>
                                             <a x-on:click="deleteURL = '{% url 'gestion:eliminar-menu' menu.pk %}'">Eliminar</a>
+                                            <a href="{% url 'gestion:generar-qr' menu.pk %}">Generar QR</a>
                                         </div>
                                     </td>
                                 </tr>

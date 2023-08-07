@@ -4,6 +4,10 @@ from django.db.models import Count
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.shortcuts import HttpResponse
+from django.utils.text import slugify
+from io import BytesIO
+import qrcode
 
 from core import models
 
@@ -304,3 +308,24 @@ class PlatoCreateView(LoginRequiredMixin, UpdateView):
             },
         ]
         return data
+
+
+# QR
+class MenuPrintQrView(LoginRequiredMixin, generic.DetailView):
+    model = models.Menu
+    login_url = reverse_lazy("login")
+
+    def get_queryset(self):
+        return models.Menu.objects.filter(usuario=self.request.user)
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        img = qrcode.make(request.build_absolute_uri(reverse_lazy("core:menu-detail", args=[self.object.codigo])))  # noqa:501
+        image_buffer = BytesIO()
+        img.save(image_buffer, format='PNG')
+
+        response = HttpResponse(content_type="image/jpeg")
+        response['Content-Disposition'] = f'attachment; filename="{ slugify(self.object.nombre) }.png"'  # noqa:501
+
+        response.write(image_buffer.getvalue())
+        return response
