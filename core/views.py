@@ -6,6 +6,8 @@ from core import models
 class MenuView(generic.DetailView):
     model = models.Menu
     template_name = "core/menu_detail.html"
+    slug_field = "codigo"
+    slug_url_kwarg = "codigo"
 
     def get_queryset(self):
         queryset = super().get_queryset()

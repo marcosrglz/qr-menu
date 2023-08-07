@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from uuid import uuid4
 
 
 class BaseModel(models.Model):
@@ -11,6 +12,7 @@ class BaseModel(models.Model):
 
 
 class Menu(BaseModel):
+    codigo = models.UUIDField("Codigo", default=uuid4, null=False)
     nombre = models.CharField("Nombre", max_length=50)
     descripcion = models.TextField("Descripción")
     usuario = models.ForeignKey(
