@@ -1,13 +1,14 @@
+from io import BytesIO
+
+import qrcode
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
+from django.shortcuts import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.utils.text import slugify
 from django.views import generic
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from django.shortcuts import HttpResponse
-from django.utils.text import slugify
-from io import BytesIO
-import qrcode
 
 from core import models
 
@@ -20,8 +21,7 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data["menus"] = models.Menu.objects.filter(usuario=self.request.user).annotate(
-            plato_count=Count("categoria__plato"),
-            acceso_count=Count("acceso")
+            plato_count=Count("categoria__plato"), acceso_count=Count("acceso")
         )
         data["breadcrumbs"] = [
             {
@@ -320,12 +320,61 @@ class MenuPrintQrView(LoginRequiredMixin, generic.DetailView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        img = qrcode.make(request.build_absolute_uri(reverse_lazy("core:menu-detail", args=[self.object.codigo])))  # noqa:501
+        img = qrcode.make(
+            request.build_absolute_uri(
+                reverse_lazy("core:menu-detail", args=[self.object.codigo])
+            )
+        )  # noqa:501
         image_buffer = BytesIO()
-        img.save(image_buffer, format='PNG')
+        img.save(image_buffer, format="PNG")
 
         response = HttpResponse(content_type="image/jpeg")
-        response['Content-Disposition'] = f'attachment; filename="{ slugify(self.object.nombre) }.png"'  # noqa:501
+        response[
+            "Content-Disposition"
+        ] = f'attachment; filename="{ slugify(self.object.nombre) }.png"'  # noqa:501
 
         response.write(image_buffer.getvalue())
         return response
+
+
+# Estado del menú
+class PublicarMenuView(
+    LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.View
+):
+    model = models.Menu
+    login_url = reverse_lazy("login")
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.estado = "publicado"
+        self.object.save()
+        print(self.object.estado)
+        success_url = self.get_success_url()
+        return HttpResponseRedirect(success_url)
+
+    def get_queryset(self):
+        return models.Menu.objects.filter(usuario=self.request.user)
+
+    def get_success_url(self):
+        return reverse_lazy("gestion:dashboard")
+
+
+class OcultarMenuView(
+    LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.View
+):
+    model = models.Menu
+    login_url = reverse_lazy("login")
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.estado = "oculto"
+        self.object.save()
+        print(self.object.estado)
+        success_url = self.get_success_url()
+        return HttpResponseRedirect(success_url)
+
+    def get_queryset(self):
+        return models.Menu.objects.filter(usuario=self.request.user)
+
+    def get_success_url(self):
+        return reverse_lazy("gestion:dashboard")

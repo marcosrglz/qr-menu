@@ -22,7 +22,21 @@
                                 <tr>
                                     <td>{{ menu.nombre }}</td>
                                     <td>{{ menu.plato_count }}</td>
-                                    <td>{{ menu.get_estado_display }}</td>
+                                    {% if menu.estado == "oculto" %}
+                                        <td>
+                                            <form method="POST" action="{% url 'gestion:publicar-menu' menu.pk %}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="button is-success">Publicar</button>
+                                            </form>
+                                        </td>
+                                    {% elif menu.estado == "publicado" %}
+                                        <td>
+                                            <form method="POST" action="{% url 'gestion:ocultar-menu' menu.pk %}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="button is-success">Ocultar</button>
+                                            </form>
+                                        </td>
+                                    {% endif %}
                                     <td>{{ menu.acceso_count }}</td>
                                     <td style="width: fit-content;">
                                         <div style="display:flex; gap:1rem;">
