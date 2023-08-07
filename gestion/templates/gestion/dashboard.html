@@ -26,7 +26,7 @@
                                     <td>{{ menu.acceso_count }}</td>
                                     <td style="width: fit-content;">
                                         <div style="display:flex; gap:1rem;">
-                                            <a href="{% url 'core:menu-detail' menu.pk %}">Ver</a>
+                                            <a href="{% url 'core:menu-detail' menu.codigo %}">Ver</a>
                                             <a href="{% url 'gestion:editar-menu' menu.pk %}">Editar</a>
                                             <a x-on:click="deleteURL = '{% url 'gestion:eliminar-menu' menu.pk %}'">Eliminar</a>
                                         </div>
