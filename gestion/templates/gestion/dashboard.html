@@ -6,14 +6,15 @@
         <section class="section dashboard-section">
             <div class="table-container relative">
                 {% if menus %}
-                <h3 class="title px-2">Menús</h3>
+                    <h3 class="title px-2">Menús</h3>
                     <table class="table is-stripped" style="width: fit-content;">
                         <thead>
                             <tr>
                                 <th style="min-width:200px;">Nombre</th>
                                 <th>Platos</th>
                                 <th>Estado</th>
-                                <th>Acciones</th>
+                                <th>Visitas</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -22,6 +23,7 @@
                                     <td>{{ menu.nombre }}</td>
                                     <td>{{ menu.plato_count }}</td>
                                     <td>Publicado</td>
+                                    <td>{{ menu.acceso_count }}</td>
                                     <td style="width: fit-content;">
                                         <div style="display:flex; gap:1rem;">
                                             <a href="{% url 'core:menu-detail' menu.pk %}">Ver</a>
