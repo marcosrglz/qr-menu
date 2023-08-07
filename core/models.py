@@ -38,3 +38,13 @@ class Plato(BaseModel):
 
     def __str__(self):
         return self.nombre
+
+
+# Analytics
+class Acceso(BaseModel):
+    user_agent = models.CharField("User Agent", max_length=200)
+    ip = models.CharField("IP", max_length=200)
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.creado

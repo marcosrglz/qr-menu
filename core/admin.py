@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import Categoria, Menu, Plato
+from core.models import Acceso, Categoria, Menu, Plato
 
 
 class PlatoInline(admin.TabularInline):
@@ -31,6 +31,20 @@ class PlatoAdmin(admin.ModelAdmin):
     search_fields = ["nombre", "categoria"]
 
 
+class AccesoAdmin(admin.ModelAdmin):
+    readonly_fields = ["id", "creado", "modificado"]
+    list_display = ["menu", "user_agent", "ip"]
+    date_hierarchy = "creado"
+    search_fields = ["menu"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
 admin.site.register(Menu, MenuAdmin)
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(Plato, PlatoAdmin)
+admin.site.register(Acceso, AccesoAdmin)

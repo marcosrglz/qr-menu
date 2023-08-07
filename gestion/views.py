@@ -8,6 +8,27 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from core import models
 
 
+# Dashboard del usuario
+class DashboardView(LoginRequiredMixin, generic.TemplateView):
+    template_name = "gestion/dashboard.html"
+    login_url = reverse_lazy("login")
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data["menus"] = models.Menu.objects.filter(usuario=self.request.user).annotate(
+            plato_count=Count("categoria__plato"),
+            acceso_count=Count("acceso")
+        )
+        data["breadcrumbs"] = [
+            {
+                "label": "Panel",
+                "href": reverse_lazy("gestion:dashboard"),
+                "active": True,
+            }
+        ]
+        return data
+
+
 # Menús
 class MenuCreateForm(forms.ModelForm):
     class Meta:
@@ -281,25 +302,5 @@ class PlatoCreateView(LoginRequiredMixin, UpdateView):
                 ),
                 "active": False,
             },
-        ]
-        return data
-
-
-# Dashboard del usuario
-class DashboardView(LoginRequiredMixin, generic.TemplateView):
-    template_name = "gestion/dashboard.html"
-    login_url = reverse_lazy("login")
-
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        data["menus"] = models.Menu.objects.filter(usuario=self.request.user).annotate(
-            plato_count=Count("categoria__plato")
-        )
-        data["breadcrumbs"] = [
-            {
-                "label": "Panel",
-                "href": reverse_lazy("gestion:dashboard"),
-                "active": True,
-            }
         ]
         return data
