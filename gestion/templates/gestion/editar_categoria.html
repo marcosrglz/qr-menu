@@ -22,9 +22,15 @@
                 </form>
             </div>
         </section>
-        <section class="section ">
-            <div class="table-container">
-                <h3 class="title px-2">Platos</h3>
+        <section class="info-section section is-flex is-flex-direction-column is-align-items-center is-flex-grow-2">
+            <div class="info-section table-container">
+                <div class="is-flex is-justify-content-space-between is-flex-wrap-wrap">
+                    <h3 class="title px-2">Platos</h3>
+                    <div class="edit-buttons-container">
+                        <a class="button" href="{% url 'gestion:dashboard' %}">Volver al panel</a>
+                        <a class="button is-primary" href="{% url 'gestion:crear-plato' categoria.pk %}">Crear plato</a>
+                    </div>
+                </div>
                 {% if object.plato_set.count > 0 %}
                     <table class="table is-stripped" style="width: fit-content;">
                         <thead>
@@ -33,7 +39,7 @@
                                 <th>Descripcion</th>
                                 <th style="text-align: right;">Precio</th>
                                 <th style="text-align: center">Estado</th>
-                                <th>Acciones</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,7 +51,6 @@
                                     <td style="text-align: center">Visible</td>
                                     <td style="width: fit-content;">
                                         <div style="display:flex; gap:1rem;">
-                                            <a href="{% url 'core:menu-detail' categoria.menu.pk %}">Ver</a>
                                             <a href="{% url 'gestion:editar-categoria' categoria.pk %}">Editar</a>
                                         </div>
                                     </td>
@@ -56,10 +61,6 @@
                 {% else %}
                     <h2 class="title is-5">Aún no has creado ningún plato</h2>
                 {% endif %}
-            </div>
-            <div class="edit-buttons-container">
-                <a class="button" href="{% url 'gestion:dashboard' %}">Volver al panel</a>
-                <a class="button is-primary" href="{% url 'gestion:crear-plato' categoria.pk %}">Crear plato</a>
             </div>
         </section>
     </div>
