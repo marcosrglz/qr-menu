@@ -14,7 +14,7 @@
                 {% include "partials/field.html" with field=field %}
             {% endfor %}
             <div class="is-flex is-justify-content-center" style="gap: 2rem;">
-                <a href="{% url 'gestion:dashboard' %}" class="button">Cancelar</a>
+                <a href="{% url 'gestion:editar-menu' menu.pk %}" class="button">Cancelar</a>
                 <button type="submit" class="button is-primary">Confirmar</button>
             </div>
         </form>
