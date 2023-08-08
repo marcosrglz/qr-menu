@@ -1,0 +1,27 @@
+{% extends 'gestion_layout.html' %}
+
+{% block main_class %}create-menu-page{% endblock %}
+{% block title %}Editar Categoría | Menudiño{% endblock %}
+
+{% block content %}
+    <div class="editar-menu-desktop">
+        <section class="section is-flex is-flex-direction-column is-flex-grow-2">
+            <h3 class="title has-text-centered">Plato</h3>
+            <div
+                class="container is-flex is-flex-direction-column "
+                style="width: 320px;">
+                <form method="POST">
+                    {% csrf_token %}
+                    {% for field in form.visible_fields %}
+                        {% include "partials/field.html" with field=field %}
+                    {% endfor %}
+                    <div class="is-flex is-justify-content-center" style="gap: 1rem;">
+                        <a href="{% url 'gestion:editar-categoria' object.categoria.pk %}" class="button">Cancelar</a>
+                        <button type="submit" class="button is-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
