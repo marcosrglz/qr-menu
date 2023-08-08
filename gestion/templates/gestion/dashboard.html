@@ -5,8 +5,8 @@
     <div x-cloak x-data="{ deleteURL: '' }">
         <section class="section dashboard-section">
             {% if menus %}
-            <h3 class="title px-2">Menús</h3>
-            <div class="table-container relative">
+                <h3 class="title px-2">Menús</h3>
+                <div class="table-container relative">
                     <table class="table is-stripped" style="width: fit-content;">
                         <thead>
                             <tr>
@@ -51,7 +51,6 @@
                         </tbody>
                     </table>
                     <div x-show="deleteURL" class="delete-menu-container" x-on:keyup.window.escape="deleteURL = ''">
-                        <p x-text="deleteURL"></p>
                         <form
                             class="delete-menu-form"
                             method="POST"
@@ -63,12 +62,11 @@
                             <input type="submit" value="confirmar" class="button is-primary" />
                         </form>
                     </div>
-                    <a class="button is-primary" href={% url "gestion:crear-menu" %}>Crear un menú</a>
-                {% else %}
-                    <h2 class="title is-5">Aún no has creado ningún menú</h2>
-                    <a class="button is-primary" href={% url "gestion:crear-menu" %}>Crear un menú</a>
-                {% endif %}
-            </div>
+                </div>
+            {% else %}
+                <h2 class="title is-5">Aún no has creado ningún menú</h2>
+            {% endif %}
+            <a class="button is-primary" href="{% url 'gestion:crear-menu' %}">Crear un menú</a>
         </section>
     </div>
 {% endblock %}

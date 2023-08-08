@@ -238,6 +238,16 @@ class CategoriaEditView(LoginRequiredMixin, UpdateView):
         return data
 
 
+class CategoriaDeleteView(LoginRequiredMixin, DeleteView):
+    model = models.Categoria
+
+    def get_queryset(self):
+        return models.Categoria.objects.filter(menu__usuario=self.request.user)
+
+    def get_success_url(self):
+        return reverse_lazy("gestion:editar-menu", args=[self.object.menu.pk])
+
+
 # Platos
 class PlatoCreateForm(forms.ModelForm):
     class Meta:
@@ -308,6 +318,72 @@ class PlatoCreateView(LoginRequiredMixin, UpdateView):
             },
         ]
         return data
+
+
+class PlatoUpdateForm(forms.ModelForm):
+    class Meta:
+        model = models.Plato
+        fields = ["nombre", "descripcion", "precio"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class PlatoEditView(LoginRequiredMixin, UpdateView):
+    model = models.Plato
+    form_class = PlatoUpdateForm
+    template_name = "gestion/editar_plato.html"
+    login_url = reverse_lazy("login")
+
+    def get_queryset(self):
+        return models.Plato.objects.filter(
+            categoria__menu__usuario=self.request.user
+        ).select_related("categoria__menu__usuario")
+
+    def get_success_url(self):
+        return reverse_lazy("gestion:editar-categoria", args=[self.object.categoria.pk])
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data["breadcrumbs"] = [
+            {
+                "label": "Panel",
+                "href": reverse_lazy("gestion:dashboard"),
+                "active": False,
+            },
+            {
+                "label": self.get_object().categoria.menu.nombre,
+                "href": reverse_lazy(
+                    "gestion:editar-menu", args=[self.get_object().categoria.menu.pk]
+                ),
+                "active": False,
+            },
+            {
+                "label": self.get_object().categoria.nombre,
+                "href": reverse_lazy(
+                    "gestion:editar-categoria", args=[self.get_object().categoria.pk]
+                ),
+                "active": False,
+            },
+            {
+                "label": self.get_object().nombre,
+                "href": reverse_lazy(
+                    "gestion:editar-plato", args=[self.get_object().pk]
+                ),
+                "active": True,
+            },
+        ]
+        return data
+
+
+class PlatoDeleteView(LoginRequiredMixin, DeleteView):
+    model = models.Plato
+
+    def get_queryset(self):
+        return models.Plato.objects.filter(categoria__menu__usuario=self.request.user)
+
+    def get_success_url(self):
+        return reverse_lazy("gestion:editar-categoria", args=[self.object.categoria.pk])
 
 
 # QR

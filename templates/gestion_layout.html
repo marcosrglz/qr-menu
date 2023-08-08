@@ -34,7 +34,7 @@
             <div class="navbar-end is-flex">
                 <div class="navbar-item">
                     {% if user.is_authenticated %}
-                        <a class="button is-danger" href="{% url 'logout' %}">
+                        <a class="has-text-white is-underlined" href="{% url 'logout' %}">
                             Cerrar Sesión
                         </a>
                     {% else %}

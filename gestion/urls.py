@@ -1,16 +1,19 @@
 from django.urls import path
 
 from gestion.views import (
-    CategoriaCreateView,
-    CategoriaEditView,
     DashboardView,
     MenuCreateView,
     MenuDeleteView,
     MenuEditView,
     MenuPrintQrView,
+    OcultarMenuView,
+    CategoriaCreateView,
+    CategoriaEditView,
+    CategoriaDeleteView,
     PlatoCreateView,
+    PlatoEditView,
+    PlatoDeleteView,
     PublicarMenuView,
-    OcultarMenuView
 )
 
 app_name = "gestion"
@@ -33,6 +36,21 @@ urlpatterns = [
         "editar-categoria/<int:pk>/crear-plato/",
         PlatoCreateView.as_view(),
         name="crear-plato",
+    ),
+    path(
+        "eliminar-categoria/<int:pk>/",
+        CategoriaDeleteView.as_view(),
+        name="eliminar-categoria"
+    ),
+    path(
+        "plato/<int:pk>/",
+        PlatoEditView.as_view(),
+        name="editar-plato",
+    ),
+    path(
+        "eliminar-plato/<int:pk>/",
+        PlatoDeleteView.as_view(),
+        name="eliminar-plato"
     ),
     path("menu/<int:pk>/qr/", MenuPrintQrView.as_view(), name="generar-qr"),
     path("menu/<int:pk>/publicar/", PublicarMenuView.as_view(), name="publicar-menu"),

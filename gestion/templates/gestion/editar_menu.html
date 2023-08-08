@@ -22,7 +22,7 @@
                 </form>
             </div>
         </section>
-        <section class="info-section section is-flex is-flex-direction-column is-align-items-center is-flex-grow-2">
+        <section x-cloak x-data="{ deleteURL: '' }" class="info-section section is-flex is-flex-direction-column is-align-items-center is-flex-grow-2">
             <div class="info-container is-flex is-justify-content-space-between is-flex-wrap-wrap">
                 <h3 class="title">Categorías</h3>
                 <div class="edit-buttons-container">
@@ -50,12 +50,25 @@
                                     <td style="width: fit-content;">
                                         <div style="display:flex; gap:1rem;">
                                             <a href="{% url 'gestion:editar-categoria' categoria.pk %}">Editar</a>
+                                            <a x-on:click="deleteURL = '{% url 'gestion:eliminar-categoria' categoria.pk %}'">Eliminar</a>
                                         </div>
                                     </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                    <div x-show="deleteURL" class="delete-menu-container" x-on:keyup.window.escape="deleteURL = ''">
+                        <form
+                            class="delete-menu-form"
+                            method="POST"
+                            x-bind:action="deleteURL"
+                            x-on:click.outside="deleteURL = ''">
+                            {% csrf_token %}
+                            <p>Seguro que quieres eliminar la categoría?</p>
+                            <input x-on:click="deleteURL = ''" type="button" value="Cancelar" class="button" />
+                            <input type="submit" value="confirmar" class="button is-primary" />
+                        </form>
+                    </div>
                 {% else %}
                     <h2 class="title is-5">Aún no has creado ninguna categoría</h2>
                 {% endif %}
