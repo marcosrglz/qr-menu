@@ -1,0 +1,68 @@
+@import "../node_modules/bulma/bulma.sass";
+@import "./variables";
+
+
+/* Variables */
+
+html {
+    font-family: "Poppins", sans-serif;
+    background-color: #f3f3f3d3;
+}
+
+body {
+    max-width: 1024px;
+    margin: auto;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+header {
+    background-color: $main-color;
+}
+
+ul {
+    list-style-type: disc;
+    margin: auto;
+    padding: 0 0 0 40px;
+}
+
+.card {
+    max-width: 300px;
+    margin: auto;
+    border-radius: 1rem;
+    height: 390px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.free-card {
+    background-color: #FFEAEE;
+}
+
+.premium-card {
+    background-color: #FFD2DC;
+    border: 1px solid $main-color;
+}
+
+.card-content {
+    h3 {
+        color: $main-color;
+    }
+}
+
+@media screen and (max-width: $tablet) {
+    nav {
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    header {
+        h2 {
+            font-size: 20px;
+        }
+    }
+}
