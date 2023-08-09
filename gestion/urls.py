@@ -1,18 +1,18 @@
 from django.urls import path
 
 from gestion.views import (
+    CategoriaCreateView,
+    CategoriaDeleteView,
+    CategoriaEditView,
     DashboardView,
     MenuCreateView,
     MenuDeleteView,
     MenuEditView,
     MenuPrintQrView,
     OcultarMenuView,
-    CategoriaCreateView,
-    CategoriaEditView,
-    CategoriaDeleteView,
     PlatoCreateView,
-    PlatoEditView,
     PlatoDeleteView,
+    PlatoEditView,
     PublicarMenuView,
 )
 
@@ -40,18 +40,14 @@ urlpatterns = [
     path(
         "eliminar-categoria/<int:pk>/",
         CategoriaDeleteView.as_view(),
-        name="eliminar-categoria"
+        name="eliminar-categoria",
     ),
     path(
         "plato/<int:pk>/",
         PlatoEditView.as_view(),
         name="editar-plato",
     ),
-    path(
-        "eliminar-plato/<int:pk>/",
-        PlatoDeleteView.as_view(),
-        name="eliminar-plato"
-    ),
+    path("eliminar-plato/<int:pk>/", PlatoDeleteView.as_view(), name="eliminar-plato"),
     path("menu/<int:pk>/qr/", MenuPrintQrView.as_view(), name="generar-qr"),
     path("menu/<int:pk>/publicar/", PublicarMenuView.as_view(), name="publicar-menu"),
     path("menu/<int:pk>/ocultar/", OcultarMenuView.as_view(), name="ocultar-menu"),

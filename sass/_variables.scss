@@ -1,0 +1,11 @@
+$main-color: #C94251;
+
+.button-main-color {
+    background-color: $main-color;
+    color: white;
+}
+
+.button-main-color:hover {
+    background-color: #e23348;
+    color: white;
+}
