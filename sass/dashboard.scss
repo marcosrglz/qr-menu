@@ -74,3 +74,9 @@ table, td, th {
         flex-direction: row;
     }
 }
+
+/* Mensaje Flotante */
+.floating-message {
+    position: aboslute;
+    bottom: 0;
+}
