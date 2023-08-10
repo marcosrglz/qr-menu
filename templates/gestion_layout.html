@@ -8,7 +8,7 @@
         <meta name="author" content="Marcos Rodrigues González" />
         <meta name="copyright" content="Marcos Rodrigues González" />
         <meta name="robots" content="noindex"/>
-        <title>{% block title %}QRMenu - Gestión{% endblock %}</title>
+        <title>{% block title %}Gestión - Menudiño{% endblock %}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -26,6 +26,16 @@
             href="{% static 'dist/dashboard.css' %}"
         />
         <script src="//unpkg.com/alpinejs" defer></script>
+        {% comment %} Favicon {% endcomment %}
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
+        <link rel="manifest" href="{% static 'site.webmanifest' %}">
+        <link rel="mask-icon" href="{% static 'safari-pinned-tab.svg' %}" color="#383838">
+        <meta name="apple-mobile-web-app-title" content="Menudi&ntilde;o">
+        <meta name="application-name" content="Menudi&ntilde;o">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="theme-color" content="#ffffff">
     </head>
     <body>
         <nav class="navbar is-primary is-flex is-justify-content-space-evenly is-align-items-center">
