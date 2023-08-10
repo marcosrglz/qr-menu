@@ -37,8 +37,7 @@
                             <tr>
                                 <th style="min-width:200px;">Nombre</th>
                                 <th>Descripcion</th>
-                                <th style="text-align: right;">Precio</th>
-                                <th style="text-align: center">Estado</th>
+                                <th class="has-text-right">Precio</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -47,8 +46,7 @@
                                 <tr>
                                     <td>{{ plato.nombre }}</td>
                                     <td style="min-width: 200px;">{{ plato.descripcion }}</td>
-                                    <td style="text-align: right;">{{ plato.precio|floatformat:"2g" }} €</td>
-                                    <td style="text-align: center">Visible</td>
+                                    <td class="has-text-right">{{ plato.precio|floatformat:"2g" }} €</td>
                                     <td style="width: fit-content;">
                                         <div style="display:flex; gap:1rem;">
                                             <a href="{% url 'gestion:editar-plato' plato.pk %}">Editar</a>
