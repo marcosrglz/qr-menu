@@ -12,6 +12,9 @@
             {% for field in form.visible_fields %}
                 {% include "partials/field.html" with field=field %}
             {% endfor %}
+            {% for error in form.non_field_errors %}
+                <div class="has-text-danger has-text-centered mb-3">{{ error }}</div>
+            {% endfor %}
             <div class="is-flex is-justify-content-center" style="gap: 2rem;">
                 <a href="{% url 'gestion:dashboard' %}" class="button">Cancelar</a>
                 <button type="submit" class="button is-primary">Confirmar</button>
