@@ -67,6 +67,10 @@ table, td, th {
     gap: 1rem;
 }
 
+.editar-menu-desktop:first-child h3 {
+    text-align: center;
+}
+
 @media screen and (min-width: 1024px) {
     .editar-menu-desktop {
         display: flex;
