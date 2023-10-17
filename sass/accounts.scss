@@ -42,7 +42,15 @@
 }
   
 @media screen and (max-width: 768px) {
-  .login-form {
-    padding: 2rem;
+  .accounts-form {
+    max-width: 350px;
+    
+    .buttons-container-login .button {
+        padding: 5px 10px;
+    }
+
+    .login-form {
+      padding: 2rem;
+    }
   }
 } 
