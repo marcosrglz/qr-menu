@@ -89,8 +89,6 @@ main {
   position: fixed;
   height: 100svh;
   max-width: 500px;
-  max-height: 700px;
-  max-width: 400px;
   top: 0;
   right: 0;
   bottom: 0;
@@ -203,5 +201,7 @@ main {
   .category-detail, .menu-wrapper {
     border: 3px solid rgb(0, 0, 0, 0.8);
     border-radius: 50px;
+    max-width: 400px;
+    max-height: 700px;
   }
 }
