@@ -49,16 +49,12 @@ class MenuCreateForm(forms.ModelForm):
     class Meta:
         model = models.Menu
         fields = ["nombre", "descripcion"]
-        widgets = {
-            "descripcion": forms.Textarea()
-        }
 
     def __init__(self, *args, user, **kwargs):
         self.user = user
         super().__init__(*args, **kwargs)
 
     def save(self, commit=True):
-        breakpoint()
         return models.Menu.objects.create(
             nombre=self.cleaned_data["nombre"],
             descripcion=self.cleaned_data["descripcion"],
