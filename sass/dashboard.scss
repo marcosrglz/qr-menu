@@ -67,6 +67,10 @@ table, td, th {
     gap: 1rem;
 }
 
+.textarea {
+    resize: vertical;
+}
+
 .editar-menu-desktop:first-child h3 {
     text-align: center;
 }
