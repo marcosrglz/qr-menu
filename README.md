@@ -1,4 +1,5 @@
-# QR Menu
+# Menudiño
+Menudiño es una página web
 
 ## Instalación
 
