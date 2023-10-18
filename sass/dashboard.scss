@@ -5,7 +5,7 @@ $primary: #7400B8;
 [x-cloak] { display: none !important; }
 
 html, body {
-    font-family: "Poppins", sans-serif;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
 .section {
@@ -65,6 +65,10 @@ table, td, th {
 .edit-buttons-container {
     display: flex;
     gap: 1rem;
+}
+
+.textarea {
+    resize: vertical;
 }
 
 .editar-menu-desktop:first-child h3 {

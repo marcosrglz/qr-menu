@@ -4,7 +4,7 @@
     <label class="label">{{ field.label }}</label>
     <div class="control">
         {% if 'textarea' in field.field.widget.template_name %}
-            {% render_field field class+="textarea" %}
+            <textarea name="descripcion" cols="10" rows="2" class="textarea" required="" id="id_descripcion">{{ field.value|default_if_none:"" }}</textarea>
         {% else %}
             {% render_field field class+="input" %}
         {% endif %}

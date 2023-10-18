@@ -1,5 +1,5 @@
 html {
-  font-family: "Poppins", sans-serif;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
 body {
@@ -7,8 +7,9 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin: 0 auto;
-  max-width: 600px;
+  margin: auto;
+  max-width: 400px;
+  height: 100vh;
 }
 
 /* Lineas de separación */
@@ -20,6 +21,11 @@ hr {
   border-right: 0;
   border-bottom: 1px solid #e4e4e7;
   width: 200px;
+}
+
+.menu-wrapper {
+  min-height: 667px;
+  min-width: 394px;
 }
 
 /* header selector de categoría */
@@ -69,7 +75,6 @@ main {
   padding: 0.8rem 1rem;
   box-sizing: border-box;
   border-radius: 0.8rem;
-  font-weight: 400;
   width: 250px;
   max-width: 250px;
   text-decoration: none;
@@ -84,7 +89,6 @@ main {
   position: fixed;
   height: 100svh;
   max-width: 500px;
-  max-height: 100svh;
   top: 0;
   right: 0;
   bottom: 0;
@@ -190,5 +194,14 @@ main {
       border-style: none;
       aspect-ratio: 4/3;
     }
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .category-detail, .menu-wrapper {
+    border: 3px solid rgb(0, 0, 0, 0.8);
+    border-radius: 50px;
+    max-width: 400px;
+    max-height: 700px;
   }
 }

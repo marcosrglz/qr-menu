@@ -1,2 +1,2 @@
-back: scripts/run
-sass: scripts/sass
+runserver: PYTHONUNBUFFERED=1 python manage.py runserver
+sass: sass sass:static/dist -s compressed --watch

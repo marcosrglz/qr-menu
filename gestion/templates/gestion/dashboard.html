@@ -11,7 +11,6 @@
                         <thead>
                             <tr>
                                 <th style="min-width:200px;">Nombre</th>
-                                <th>Platos</th>
                                 <th>Estado</th>
                                 <th>Visitas</th>
                                 <th></th>
@@ -20,8 +19,7 @@
                         <tbody>
                             {% for menu in menus %}
                                 <tr>
-                                    <td>{{ menu.nombre }}</td>
-                                    <td>{{ menu.plato_count }}</td>
+                                    <td>{{ menu.nombre }}</td>  
                                     {% if menu.estado == "oculto" %}
                                         <td>
                                             <form method="POST" action="{% url 'gestion:publicar-menu' menu.pk %}">
