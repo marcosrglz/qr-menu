@@ -3,7 +3,7 @@
 <div class="field">
     <label class="label">{{ field.label }}</label>
     <div class="control">
-        {% if 'textarea' in field.field.widget.template_name %}
+        {% if 'textarea' in field.widget.template_name %}
             {% render_field field class+="textarea" %}
         {% else %}
             {% render_field field class+="input" %}
