@@ -2,6 +2,7 @@ from io import BytesIO
 
 import qrcode
 from django import forms
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
@@ -10,7 +11,6 @@ from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views import generic
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from django.conf import settings
 
 from core import models
 
@@ -35,7 +35,7 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
         return data
 
 
-class MessageMixin():
+class MessageMixin:
     msg_type = messages.SUCCESS
     msg_desc = "Ejecutado con éxito"
 
@@ -279,9 +279,7 @@ class PlatoCreateForm(forms.ModelForm):
     class Meta:
         model = models.Plato
         fields = ["nombre", "descripcion", "precio"]
-        widgets = {
-            "precio": forms.NumberInput(attrs={'min': 0})
-        }
+        widgets = {"precio": forms.NumberInput(attrs={"min": 0})}
 
     def __init__(self, *args, categoria, **kwargs):
         self.categoria = categoria
@@ -354,9 +352,7 @@ class PlatoUpdateForm(forms.ModelForm):
     class Meta:
         model = models.Plato
         fields = ["nombre", "descripcion", "precio"]
-        widgets = {
-            "precio": forms.NumberInput(attrs={'min': 0})
-        }
+        widgets = {"precio": forms.NumberInput(attrs={"min": 0})}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -450,10 +446,7 @@ class MenuPrintQrView(LoginRequiredMixin, generic.DetailView):
 
 # Estado del menú
 class PublicarMenuView(
-    MessageMixin,
-    LoginRequiredMixin,
-    generic.detail.SingleObjectMixin,
-    generic.View
+    MessageMixin, LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.View
 ):
     model = models.Menu
     login_url = reverse_lazy("login")
@@ -475,10 +468,7 @@ class PublicarMenuView(
 
 
 class OcultarMenuView(
-    MessageMixin,
-    LoginRequiredMixin,
-    generic.detail.SingleObjectMixin,
-    generic.View
+    MessageMixin, LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.View
 ):
     model = models.Menu
     login_url = reverse_lazy("login")
