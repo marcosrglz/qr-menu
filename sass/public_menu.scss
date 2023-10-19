@@ -66,6 +66,9 @@ main {
   align-items: center;
   text-align: center;
   gap: 20px;
+  max-height: 400px;
+  overflow-y: scroll;
+  scrollbar-gutter: stable both-edges;
 }
 
 .category-name {
