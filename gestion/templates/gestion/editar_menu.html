@@ -36,7 +36,6 @@
                         <thead>
                             <tr>
                                 <th style="min-width:200px;">Nombre</th>
-                                <th>Platos</th>
                                 <th>Estado</th>
                                 <th></th>
                             </tr>
@@ -45,7 +44,6 @@
                             {% for categoria in object.categoria_set.all %}
                                 <tr>
                                     <td>{{ categoria.nombre }}</td>
-                                    <td>{{ categoria.plato }}</td>
                                     <td>Visible</td>
                                     <td style="width: fit-content;">
                                         <div style="display:flex; gap:1rem;">
