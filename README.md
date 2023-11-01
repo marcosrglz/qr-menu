@@ -7,7 +7,7 @@ Menudiño es una página web dedicada al mundo de la hostelería, en la que pued
 pip install -r requirements.txt
 ```
 
-***migraciones*** [doc](https://docs.djangoproject.com/en/4.2/topics/migrations/)
+***migraciones***
 ```bash
 python manage.py makemigrations
 ```
