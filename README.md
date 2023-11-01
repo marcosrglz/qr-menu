@@ -1,20 +1,21 @@
 # Menudiño
-Menudiño es una página web
+Menudiño es una página web dedicada al mundo de la hostelería, en la que puedes crear menús y gestionarlos a tu antojo de manera rápida y sencilla.
 
-## Instalación
+## Setup
+***librerías y paquetes***
+```bash
+pip install -r requirements.txt
+```
 
-Se requiere Python3.11.4
-Se requiere Sass
-Ejemplo: pyenv install 3.11.4
-Activar: pyenv local 3.11.4
+***migraciones*** [doc](https://docs.djangoproject.com/en/4.2/topics/migrations/)
+```bash
+python manage.py makemigrations
+```
+```bash
+python manage.py migrate
+```
 
-Instalar paquetes: pip install -r requirements.txt
-
-Ejecutar migraciones: python manage.py migrate
-
-Ejecutar servidor de desarrollo: python manage.py runserver
-
-Instalar linters: pip install -r requirements-dev.txt
-Linters: flake8, black, isort
-
-Atajo para arrancar sass compiler y runserver: honcho start
+***linters***
+```bash
+pip install -r requirements-dev.txt
+```
