@@ -11,6 +11,7 @@
                         <thead>
                             <tr>
                                 <th style="min-width:200px;">Nombre</th>
+                                <th>Descripción</th>
                                 <th>Estado</th>
                                 <th>Visitas</th>
                                 <th></th>
@@ -20,6 +21,7 @@
                             {% for menu in menus %}
                                 <tr>
                                     <td>{{ menu.nombre }}</td>
+                                    <td>{{ menu.descripcion }}</td>
                                     {% if menu.estado == "oculto" %}
                                         <td>
                                             <form method="POST" action="{% url 'gestion:publicar-menu' menu.pk %}">
