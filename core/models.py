@@ -32,6 +32,13 @@ class Menu(BaseModel):
 
 class Categoria(BaseModel):
     nombre = models.CharField("Nombre", max_length=50)
+    descripcion = models.TextField("Descripción")
+    estado = models.CharField(
+        "Estado",
+        max_length=100,
+        default="oculta",
+        choices=[("publicada", "Publicada"), ("oculta", "Oculta")],
+    )
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -56,4 +63,4 @@ class Acceso(BaseModel):
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.creado
+        return self.id

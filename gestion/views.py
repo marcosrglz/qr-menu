@@ -23,7 +23,7 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data["menus"] = models.Menu.objects.filter(usuario=self.request.user).annotate(
-            plato_count=Count("categoria__plato"), acceso_count=Count("acceso")
+            plato_count=Count("categoria__plato"), acceso_count=Count("acceso", distinct=True)
         )
         data["breadcrumbs"] = [
             {
@@ -155,7 +155,7 @@ class MenuDeleteView(MessageMixin, LoginRequiredMixin, DeleteView):
 class CategoriaCreateForm(forms.ModelForm):
     class Meta:
         model = models.Categoria
-        fields = ["nombre"]
+        fields = ["nombre", "descripcion"]
 
     def __init__(self, *args, menu, **kwargs):
         self.menu = menu
@@ -163,7 +163,9 @@ class CategoriaCreateForm(forms.ModelForm):
 
     def save(self, commit=True):
         return models.Categoria.objects.create(
-            nombre=self.cleaned_data["nombre"], menu=self.menu
+            nombre=self.cleaned_data["nombre"],
+            descripcion=self.cleaned_data["descripcion"],
+            menu=self.menu,
         )
 
 
@@ -216,7 +218,7 @@ class CategoriaCreateView(MessageMixin, LoginRequiredMixin, UpdateView):
 class CategoriaUpdateForm(forms.ModelForm):
     class Meta:
         model = models.Categoria
-        fields = ["nombre"]
+        fields = ["nombre", "descripcion"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -456,7 +458,6 @@ class PublicarMenuView(
         self.object = self.get_object()
         self.object.estado = "publicado"
         self.object.save()
-        print(self.object.estado)
         success_url = self.get_success_url()
         return HttpResponseRedirect(success_url)
 
@@ -478,7 +479,6 @@ class OcultarMenuView(
         self.object = self.get_object()
         self.object.estado = "oculto"
         self.object.save()
-        print(self.object.estado)
         success_url = self.get_success_url()
         return HttpResponseRedirect(success_url)
 
@@ -486,4 +486,47 @@ class OcultarMenuView(
         return models.Menu.objects.filter(usuario=self.request.user)
 
     def get_success_url(self):
-        return reverse_lazy("gestion:dashboard")
+        return reverse_lazy("gestion:editar-menu")
+
+
+# Estado de la categoría
+class PublicarCategoriaView(
+    MessageMixin, LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.View
+):
+    model = models.Categoria
+    login_url = reverse_lazy("login")
+    msg_desc = "Categoría publicada con éxito"
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.estado = "publicada"
+        self.object.save()
+        success_url = self.get_success_url()
+        return HttpResponseRedirect(success_url)
+
+    def get_queryset(self):
+        return models.Categoria.objects.filter()
+
+    def get_success_url(self):
+        return reverse_lazy("gestion:editar-menu", args=[self.object.menu_id])
+
+
+class OcultarCategoriaView(
+    MessageMixin, LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.View
+):
+    model = models.Categoria
+    login_url = reverse_lazy("login")
+    msg_desc = "Categoría ocultada con éxito"
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.estado = "oculta"
+        self.object.save()
+        success_url = self.get_success_url()
+        return HttpResponseRedirect(success_url)
+
+    def get_queryset(self):
+        return models.Categoria.objects.all()
+
+    def get_success_url(self):
+        return reverse_lazy("gestion:editar-menu", args=[self.object.menu_id])

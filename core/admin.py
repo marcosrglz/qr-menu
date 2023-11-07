@@ -22,7 +22,8 @@ class MenuAdmin(admin.ModelAdmin):
 
 class CategoriaAdmin(admin.ModelAdmin):
     readonly_fields = ["id", "creado", "modificado"]
-    list_display = ["id", "nombre", "menu"]
+    list_display = ["id", "nombre", "menu", "estado"]
+    list_filter = ["estado"]
     search_fields = ["nombre", "menu"]
 
 

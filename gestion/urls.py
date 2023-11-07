@@ -9,10 +9,12 @@ from gestion.views import (
     MenuDeleteView,
     MenuEditView,
     MenuPrintQrView,
+    OcultarCategoriaView,
     OcultarMenuView,
     PlatoCreateView,
     PlatoDeleteView,
     PlatoEditView,
+    PublicarCategoriaView,
     PublicarMenuView,
 )
 
@@ -51,4 +53,8 @@ urlpatterns = [
     path("menu/<int:pk>/qr/", MenuPrintQrView.as_view(), name="generar-qr"),
     path("menu/<int:pk>/publicar/", PublicarMenuView.as_view(), name="publicar-menu"),
     path("menu/<int:pk>/ocultar/", OcultarMenuView.as_view(), name="ocultar-menu"),
+    path(
+        "<int:pk>/publicar/", PublicarCategoriaView.as_view(), name="publicar-categoria"
+    ),
+    path("<int:pk>/ocultar/", OcultarCategoriaView.as_view(), name="ocultar-categoria"),
 ]
