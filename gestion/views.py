@@ -2,7 +2,6 @@ from io import BytesIO
 
 import qrcode
 from django import forms
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
@@ -13,6 +12,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from core import models
+from gestion import forms as gestion_forms
 
 
 # Dashboard del usuario
@@ -23,7 +23,21 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data["menus"] = models.Menu.objects.filter(usuario=self.request.user).annotate(
+<<<<<<< Updated upstream
             plato_count=Count("categoria__plato"), acceso_count=Count("acceso", distinct=True)
+=======
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+            plato_count=Count("categoria__plato"), acceso_count=Count("acceso")
+=======
+            plato_count=Count("categoria__plato"),
+            acceso_count=Count("acceso", distinct=True),
+>>>>>>> Stashed changes
+=======
+            plato_count=Count("categoria__plato"),
+            acceso_count=Count("acceso", distinct=True),
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
         )
         data["breadcrumbs"] = [
             {
@@ -35,6 +49,7 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
         return data
 
 
+# Mensaje de alerta al efectuar un cambio
 class MessageMixin:
     msg_type = messages.SUCCESS
     msg_desc = "Ejecutado con éxito"
@@ -45,34 +60,9 @@ class MessageMixin:
 
 
 # Menús
-class MenuCreateForm(forms.ModelForm):
-    class Meta:
-        model = models.Menu
-        fields = ["nombre", "descripcion"]
-
-    def __init__(self, *args, user, **kwargs):
-        self.user = user
-        super().__init__(*args, **kwargs)
-
-    def save(self, commit=True):
-        return models.Menu.objects.create(
-            nombre=self.cleaned_data["nombre"],
-            descripcion=self.cleaned_data["descripcion"],
-            usuario=self.user,
-        )
-
-    def clean(self):
-        cleaned_data = super().clean()
-        menus = models.Menu.objects.filter(usuario=self.user).count()
-
-        if menus >= settings.MAX_MENUS and not self.user.is_superuser:
-            raise forms.ValidationError("Has alcanzado el límite de menús")
-
-        return cleaned_data
-
-
+# Crear menú
 class MenuCreateView(MessageMixin, LoginRequiredMixin, CreateView):
-    form_class = MenuCreateForm
+    form_class = gestion_forms.MenuCreateForm
     template_name = "gestion/crear_menu.html"
     success_url = reverse_lazy("gestion:dashboard")
     login_url = reverse_lazy("login")

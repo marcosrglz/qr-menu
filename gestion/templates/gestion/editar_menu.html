@@ -45,6 +45,12 @@
                             {% for categoria in object.categoria_set.all %}
                                 <tr>
                                     <td>{{ categoria.nombre }}</td>
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+                                    <td>Visible</td>
+=======
+>>>>>>> Stashed changes
                                     <td>{{ categoria.descripcion }}</td>
                                     {% if categoria.estado == "oculta" %}
                                         <td>
@@ -60,7 +66,15 @@
                                                 <button type="submit" class="button is-danger">Ocultar</button>
                                             </form>
                                         </td>
+<<<<<<< Updated upstream
                                 	{% endif %}
+=======
+                                    {% endif %}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
                                     <td style="width: fit-content;">
                                         <div style="display:flex; gap:1rem;">
                                             <a href="{% url 'gestion:editar-categoria' categoria.pk %}">Editar</a>
