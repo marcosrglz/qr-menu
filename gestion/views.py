@@ -23,21 +23,7 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data["menus"] = models.Menu.objects.filter(usuario=self.request.user).annotate(
-<<<<<<< Updated upstream
-            plato_count=Count("categoria__plato"), acceso_count=Count("acceso", distinct=True)
-=======
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
             plato_count=Count("categoria__plato"), acceso_count=Count("acceso")
-=======
-            plato_count=Count("categoria__plato"),
-            acceso_count=Count("acceso", distinct=True),
->>>>>>> Stashed changes
-=======
-            plato_count=Count("categoria__plato"),
-            acceso_count=Count("acceso", distinct=True),
->>>>>>> Stashed changes
->>>>>>> Stashed changes
         )
         data["breadcrumbs"] = [
             {
