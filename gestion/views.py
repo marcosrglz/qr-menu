@@ -36,7 +36,7 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
         return data
 
 
-# Menús
+# Menus section
 class MenuCreateView(mixins.MessageMixin, LoginRequiredMixin, CreateView):
     form_class = gestion_forms.MenuCreateForm
     template_name = "gestion/crear_menu.html"
@@ -78,7 +78,7 @@ class MenuUpdateForm(forms.ModelForm):
 
 class MenuEditView(mixins.MessageMixin, LoginRequiredMixin, UpdateView):
     model = models.Menu
-    form_class = MenuUpdateForm
+    form_class = gestion_forms.MenuUpdateForm
     template_name = "gestion/editar_menu.html"
     login_url = reverse_lazy("login")
     msg_desc = "Menú editado con éxito"
@@ -117,27 +117,10 @@ class MenuDeleteView(mixins.MessageMixin, LoginRequiredMixin, DeleteView):
         return models.Menu.objects.filter(usuario=self.request.user)
 
 
-# Categoría
-class CategoriaCreateForm(forms.ModelForm):
-    class Meta:
-        model = models.Categoria
-        fields = ["nombre", "descripcion"]
-
-    def __init__(self, *args, menu, **kwargs):
-        self.menu = menu
-        super().__init__(*args, **kwargs)
-
-    def save(self, commit=True):
-        return models.Categoria.objects.create(
-            nombre=self.cleaned_data["nombre"],
-            descripcion=self.cleaned_data["descripcion"],
-            menu=self.menu,
-        )
-
-
+# Categories section
 class CategoriaCreateView(mixins.MessageMixin, LoginRequiredMixin, UpdateView):
     model = models.Menu
-    form_class = CategoriaCreateForm
+    form_class = gestion_forms.CategoriaCreateForm
     template_name = "gestion/crear_categoria.html"
     login_url = reverse_lazy("login")
     msg_desc = "Categoría creada con éxito"
@@ -181,18 +164,9 @@ class CategoriaCreateView(mixins.MessageMixin, LoginRequiredMixin, UpdateView):
         return reverse_lazy("gestion:editar-menu", args=[self.get_object().pk])
 
 
-class CategoriaUpdateForm(forms.ModelForm):
-    class Meta:
-        model = models.Categoria
-        fields = ["nombre", "descripcion"]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-
 class CategoriaEditView(mixins.MessageMixin, LoginRequiredMixin, UpdateView):
     model = models.Categoria
-    form_class = CategoriaUpdateForm
+    form_class = gestion_forms.CategoriaUpdateForm
     template_name = "gestion/editar_categoria.html"
     login_url = reverse_lazy("login")
     msg_desc = "Categoría editada con éxito"
@@ -242,29 +216,12 @@ class CategoriaDeleteView(mixins.MessageMixin, LoginRequiredMixin, DeleteView):
         return reverse_lazy("gestion:editar-menu", args=[self.object.menu.pk])
 
 
-# Platos
-class PlatoCreateForm(forms.ModelForm):
-    class Meta:
-        model = models.Plato
-        fields = ["nombre", "descripcion", "precio"]
-        widgets = {"precio": forms.NumberInput(attrs={"min": 0})}
-
-    def __init__(self, *args, categoria, **kwargs):
-        self.categoria = categoria
-        super().__init__(*args, **kwargs)
-
-    def save(self, commit=True):
-        return models.Plato.objects.create(
-            nombre=self.cleaned_data["nombre"],
-            descripcion=self.cleaned_data["descripcion"],
-            precio=self.cleaned_data["precio"],
-            categoria=self.categoria,
-        )
+# Plates section
 
 
 class PlatoCreateView(mixins.MessageMixin, LoginRequiredMixin, UpdateView):
     model = models.Categoria
-    form_class = PlatoCreateForm
+    form_class = gestion_forms.PlatoCreateForm
     template_name = "gestion/crear_plato.html"
     login_url = reverse_lazy("login")
     msg_desc = "Plato creado con éxito"
@@ -316,19 +273,9 @@ class PlatoCreateView(mixins.MessageMixin, LoginRequiredMixin, UpdateView):
         return data
 
 
-class PlatoUpdateForm(forms.ModelForm):
-    class Meta:
-        model = models.Plato
-        fields = ["nombre", "descripcion", "precio"]
-        widgets = {"precio": forms.NumberInput(attrs={"min": 0})}
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-
 class PlatoEditView(mixins.MessageMixin, LoginRequiredMixin, UpdateView):
     model = models.Plato
-    form_class = PlatoUpdateForm
+    form_class = gestion_forms.PlatoUpdateForm
     template_name = "gestion/editar_plato.html"
     login_url = reverse_lazy("login")
     msg_desc = "Plato editado con éxito"
@@ -412,7 +359,7 @@ class MenuPrintQrView(LoginRequiredMixin, generic.DetailView):
         return response
 
 
-# Estado del menú
+# Menus states
 class PublicarMenuView(
     mixins.MessageMixin,
     LoginRequiredMixin,
@@ -461,7 +408,7 @@ class OcultarMenuView(
         return reverse_lazy("gestion:editar-menu")
 
 
-# Estado de la categoría
+# Categories States
 class PublicarCategoriaView(
     mixins.MessageMixin,
     LoginRequiredMixin,
