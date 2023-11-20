@@ -6,8 +6,8 @@
 {% block content %}
 
     <div
-        class="container is-flex is-flex-direction-column is-justify-content-center is-align-content-center my-6"
-        style="width: 350px;">
+        class="create-container is-flex is-flex-direction-column is-justify-content-center is-align-content-center my-6"
+    >
         <form method="POST" action="{% url 'gestion:crear-categoria' menu.pk %}" class="create-menu-form">
             {% csrf_token %}
             {% for field in form.visible_fields %}
