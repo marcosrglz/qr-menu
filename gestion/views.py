@@ -2,8 +2,6 @@ from io import BytesIO
 
 import qrcode
 from django import forms
-from django.conf import settings
-from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
 from django.shortcuts import HttpResponse, HttpResponseRedirect
@@ -13,6 +11,8 @@ from django.views import generic
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from core import models
+from gestion import forms as gestion_forms
+from gestion import mixins
 
 
 # Dashboard del usuario
@@ -23,7 +23,8 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data["menus"] = models.Menu.objects.filter(usuario=self.request.user).annotate(
-            plato_count=Count("categoria__plato"), acceso_count=Count("acceso", distinct=True)
+            plato_count=Count("categoria__plato"),
+            acceso_count=Count("acceso", distinct=True),
         )
         data["breadcrumbs"] = [
             {
@@ -35,44 +36,9 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
         return data
 
 
-class MessageMixin:
-    msg_type = messages.SUCCESS
-    msg_desc = "Ejecutado con éxito"
-
-    def form_valid(self, form):
-        messages.add_message(self.request, self.msg_type, self.msg_desc)
-        return super().form_valid(form)
-
-
-# Menús
-class MenuCreateForm(forms.ModelForm):
-    class Meta:
-        model = models.Menu
-        fields = ["nombre", "descripcion"]
-
-    def __init__(self, *args, user, **kwargs):
-        self.user = user
-        super().__init__(*args, **kwargs)
-
-    def save(self, commit=True):
-        return models.Menu.objects.create(
-            nombre=self.cleaned_data["nombre"],
-            descripcion=self.cleaned_data["descripcion"],
-            usuario=self.user,
-        )
-
-    def clean(self):
-        cleaned_data = super().clean()
-        menus = models.Menu.objects.filter(usuario=self.user).count()
-
-        if menus >= settings.MAX_MENUS and not self.user.is_superuser:
-            raise forms.ValidationError("Has alcanzado el límite de menús")
-
-        return cleaned_data
-
-
-class MenuCreateView(MessageMixin, LoginRequiredMixin, CreateView):
-    form_class = MenuCreateForm
+# Menus section
+class MenuCreateView(mixins.MessageMixin, LoginRequiredMixin, CreateView):
+    form_class = gestion_forms.MenuCreateForm
     template_name = "gestion/crear_menu.html"
     success_url = reverse_lazy("gestion:dashboard")
     login_url = reverse_lazy("login")
@@ -110,9 +76,9 @@ class MenuUpdateForm(forms.ModelForm):
         self.fields["descripcion"].widget = forms.Textarea()
 
 
-class MenuEditView(MessageMixin, LoginRequiredMixin, UpdateView):
+class MenuEditView(mixins.MessageMixin, LoginRequiredMixin, UpdateView):
     model = models.Menu
-    form_class = MenuUpdateForm
+    form_class = gestion_forms.MenuUpdateForm
     template_name = "gestion/editar_menu.html"
     login_url = reverse_lazy("login")
     msg_desc = "Menú editado con éxito"
@@ -142,7 +108,7 @@ class MenuEditView(MessageMixin, LoginRequiredMixin, UpdateView):
         return data
 
 
-class MenuDeleteView(MessageMixin, LoginRequiredMixin, DeleteView):
+class MenuDeleteView(mixins.MessageMixin, LoginRequiredMixin, DeleteView):
     model = models.Menu
     success_url = reverse_lazy("gestion:dashboard")
     msg_desc = "Menú eliminado con éxito"
@@ -151,27 +117,10 @@ class MenuDeleteView(MessageMixin, LoginRequiredMixin, DeleteView):
         return models.Menu.objects.filter(usuario=self.request.user)
 
 
-# Categoría
-class CategoriaCreateForm(forms.ModelForm):
-    class Meta:
-        model = models.Categoria
-        fields = ["nombre", "descripcion"]
-
-    def __init__(self, *args, menu, **kwargs):
-        self.menu = menu
-        super().__init__(*args, **kwargs)
-
-    def save(self, commit=True):
-        return models.Categoria.objects.create(
-            nombre=self.cleaned_data["nombre"],
-            descripcion=self.cleaned_data["descripcion"],
-            menu=self.menu,
-        )
-
-
-class CategoriaCreateView(MessageMixin, LoginRequiredMixin, UpdateView):
+# Categories section
+class CategoriaCreateView(mixins.MessageMixin, LoginRequiredMixin, UpdateView):
     model = models.Menu
-    form_class = CategoriaCreateForm
+    form_class = gestion_forms.CategoriaCreateForm
     template_name = "gestion/crear_categoria.html"
     login_url = reverse_lazy("login")
     msg_desc = "Categoría creada con éxito"
@@ -215,18 +164,9 @@ class CategoriaCreateView(MessageMixin, LoginRequiredMixin, UpdateView):
         return reverse_lazy("gestion:editar-menu", args=[self.get_object().pk])
 
 
-class CategoriaUpdateForm(forms.ModelForm):
-    class Meta:
-        model = models.Categoria
-        fields = ["nombre", "descripcion"]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-
-class CategoriaEditView(MessageMixin, LoginRequiredMixin, UpdateView):
+class CategoriaEditView(mixins.MessageMixin, LoginRequiredMixin, UpdateView):
     model = models.Categoria
-    form_class = CategoriaUpdateForm
+    form_class = gestion_forms.CategoriaUpdateForm
     template_name = "gestion/editar_categoria.html"
     login_url = reverse_lazy("login")
     msg_desc = "Categoría editada con éxito"
@@ -265,7 +205,7 @@ class CategoriaEditView(MessageMixin, LoginRequiredMixin, UpdateView):
         return data
 
 
-class CategoriaDeleteView(MessageMixin, LoginRequiredMixin, DeleteView):
+class CategoriaDeleteView(mixins.MessageMixin, LoginRequiredMixin, DeleteView):
     model = models.Categoria
     msg_desc = "Categoría eliminada con éxito"
 
@@ -276,29 +216,12 @@ class CategoriaDeleteView(MessageMixin, LoginRequiredMixin, DeleteView):
         return reverse_lazy("gestion:editar-menu", args=[self.object.menu.pk])
 
 
-# Platos
-class PlatoCreateForm(forms.ModelForm):
-    class Meta:
-        model = models.Plato
-        fields = ["nombre", "descripcion", "precio"]
-        widgets = {"precio": forms.NumberInput(attrs={"min": 0})}
-
-    def __init__(self, *args, categoria, **kwargs):
-        self.categoria = categoria
-        super().__init__(*args, **kwargs)
-
-    def save(self, commit=True):
-        return models.Plato.objects.create(
-            nombre=self.cleaned_data["nombre"],
-            descripcion=self.cleaned_data["descripcion"],
-            precio=self.cleaned_data["precio"],
-            categoria=self.categoria,
-        )
+# Plates section
 
 
-class PlatoCreateView(MessageMixin, LoginRequiredMixin, UpdateView):
+class PlatoCreateView(mixins.MessageMixin, LoginRequiredMixin, UpdateView):
     model = models.Categoria
-    form_class = PlatoCreateForm
+    form_class = gestion_forms.PlatoCreateForm
     template_name = "gestion/crear_plato.html"
     login_url = reverse_lazy("login")
     msg_desc = "Plato creado con éxito"
@@ -350,19 +273,9 @@ class PlatoCreateView(MessageMixin, LoginRequiredMixin, UpdateView):
         return data
 
 
-class PlatoUpdateForm(forms.ModelForm):
-    class Meta:
-        model = models.Plato
-        fields = ["nombre", "descripcion", "precio"]
-        widgets = {"precio": forms.NumberInput(attrs={"min": 0})}
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-
-class PlatoEditView(MessageMixin, LoginRequiredMixin, UpdateView):
+class PlatoEditView(mixins.MessageMixin, LoginRequiredMixin, UpdateView):
     model = models.Plato
-    form_class = PlatoUpdateForm
+    form_class = gestion_forms.PlatoUpdateForm
     template_name = "gestion/editar_plato.html"
     login_url = reverse_lazy("login")
     msg_desc = "Plato editado con éxito"
@@ -408,7 +321,7 @@ class PlatoEditView(MessageMixin, LoginRequiredMixin, UpdateView):
         return data
 
 
-class PlatoDeleteView(MessageMixin, LoginRequiredMixin, DeleteView):
+class PlatoDeleteView(mixins.MessageMixin, LoginRequiredMixin, DeleteView):
     model = models.Plato
     msg_desc = "Plato eliminado con éxito"
 
@@ -446,9 +359,12 @@ class MenuPrintQrView(LoginRequiredMixin, generic.DetailView):
         return response
 
 
-# Estado del menú
+# Menus states
 class PublicarMenuView(
-    MessageMixin, LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.View
+    mixins.MessageMixin,
+    LoginRequiredMixin,
+    generic.detail.SingleObjectMixin,
+    generic.View,
 ):
     model = models.Menu
     login_url = reverse_lazy("login")
@@ -469,7 +385,10 @@ class PublicarMenuView(
 
 
 class OcultarMenuView(
-    MessageMixin, LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.View
+    mixins.MessageMixin,
+    LoginRequiredMixin,
+    generic.detail.SingleObjectMixin,
+    generic.View,
 ):
     model = models.Menu
     login_url = reverse_lazy("login")
@@ -489,9 +408,12 @@ class OcultarMenuView(
         return reverse_lazy("gestion:editar-menu")
 
 
-# Estado de la categoría
+# Categories States
 class PublicarCategoriaView(
-    MessageMixin, LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.View
+    mixins.MessageMixin,
+    LoginRequiredMixin,
+    generic.detail.SingleObjectMixin,
+    generic.View,
 ):
     model = models.Categoria
     login_url = reverse_lazy("login")
@@ -512,7 +434,10 @@ class PublicarCategoriaView(
 
 
 class OcultarCategoriaView(
-    MessageMixin, LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.View
+    mixins.MessageMixin,
+    LoginRequiredMixin,
+    generic.detail.SingleObjectMixin,
+    generic.View,
 ):
     model = models.Categoria
     login_url = reverse_lazy("login")
