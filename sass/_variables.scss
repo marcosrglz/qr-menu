@@ -1,19 +1,10 @@
-$main-color: #590D22;
+$main-color: #C9184A;
 
 .max-w-sm {
     max-width: 380px !important;
 }
 
-.is-primary {
-    background-color: $main-color !important;
-}
-
 .button-primary {
     background-color: $main-color;
     color: white;
-}
-
-.navbar-item:hover {
-    background-color: #d1d1d1 !important;
-    color: #212121 !important;
 }
