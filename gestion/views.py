@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views import generic
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.conf import settings
 
 from core import models
 from gestion import forms as gestion_forms
@@ -33,6 +34,7 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
                 "active": True,
             }
         ]
+        data["max_menus"] = settings.MAX_MENUS
         return data
 
 

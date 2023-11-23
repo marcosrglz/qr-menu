@@ -58,7 +58,10 @@
                 </div>
               </div>
             </div>
-          {% endfor %}
+            {% endfor %}
+            {% if menus|length <= max_menus %}
+              <p>hola</p>
+            {% endif%}
         </div>
       {% else %}
         <h2 class="title is-5">Aún no has creado ningún menú</h2>
