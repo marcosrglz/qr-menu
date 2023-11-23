@@ -1,12 +1,18 @@
 @import "../node_modules/bulma/bulma.sass";
 @import "./variables.scss";
+@import "./utilities.scss";
 
 [x-cloak] { 
     display: none !important;
 }
 
-html, body {
+body {
     font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1rem;
+}
+
+.dashboard-container {
+    min-height: 100svh;
 }
 
 .create-container {
@@ -18,9 +24,10 @@ html, body {
     padding: 1rem 1.5rem 1.8rem 1.5rem !important;
 }
 
-.navbar {
+.dashboard-nav {
     z-index: 0 !important;
-    background-color: $main-color !important;
+    display: flex;
+    justify-content: space-between !important;
 }
 
 .relative {
@@ -61,12 +68,6 @@ html, body {
         margin-bottom: 10px;
     }
 
-}
-
-table, td, th {
-    text-align: left;
-    width: 650px;
-    padding: 10px;
 }
 
 .edit-buttons-container {

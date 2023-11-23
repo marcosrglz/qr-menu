@@ -1,0 +1,113 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Marcos Rodrigues González" />
+    <meta name="copyright" content="Marcos Rodrigues González" />
+    <meta name="robots" content="noindex"/>
+    <title>{% block title %}Gestión - Menudiño{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'normalize.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'normalize.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'dist/dashboard.css' %}"
+    />
+    <script src="//unpkg.com/alpinejs" defer></script>
+    {% comment %} Favicon {% endcomment %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'images/favicon/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'images/favicon/safari-pinned-tab.svg' %}" color="#383838">
+    <meta name="apple-mobile-web-app-title" content="Menudi&ntilde;o">
+    <meta name="application-name" content="Menudi&ntilde;o">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+  <body>
+    <div class="dashboard-container has-background-light">
+      <header>
+        <nav class="navbar is-dark">
+          <div class="container is-flex is-justify-content-space-evenly is-align-items-center">
+            <div class="navbar-brand is-flex-grow-1">
+                <a class="navbar-item" href="{% url "gestion:dashboard" %}">
+                    <strong>{{ request.user }}</strong>
+                </a>
+            </div>
+            <div class="navbar-end is-flex">
+                <div class="navbar-item">
+                    {% if user.is_authenticated %}
+                        <a class="has-text-white is-underlined" href="{% url 'logout' %}">
+                            Cerrar Sesión
+                        </a>
+                    {% else %}
+                        <div class="buttons">
+                            <a class="button is-primary" href="{% url 'registrarse' %}">
+                                <strong>Crear Cuenta</strong>
+                            </a>
+                            <a class="button is-light" href="{% url 'login' %}">
+                                Iniciar Sesión
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+          </div>
+        </nav>
+        <nav class="breadcrumb mb-4" aria-label="breadcrumbs" style="overflow: auto;">
+          <div class="container px-3 py-2 has-background-white">
+            <ul style="flex-wrap: nowrap !important;">
+              {% for breadcrumb in breadcrumbs %}
+                <li class="{% if breadcrumb.active %}is-active{% endif %}">
+                  <a href="{{ breadcrumb.href }}">{{ breadcrumb.label }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <main class="{% block main_class %}{% endblock %}">
+        {% if messages %}
+          <div class="px-5">
+            {% for message in messages %}
+              <article
+                x-cloak
+                x-data="{ show: true }"
+                x-show="show"
+                x-transition
+                class="message {{ message.tags }} flash-message"
+              >
+                <div class="message-header">
+                  <p>Aviso</p>
+                  <button x-on:click="show = false" class="delete" aria-label="delete"></button>
+                </div>
+                <div class="message-body">
+                  {{ message }}
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+        {% endif %}
+        <div class="container b-radius">
+          {% block content %}
+          {% endblock %}
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
