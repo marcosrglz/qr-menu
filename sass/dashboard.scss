@@ -52,6 +52,32 @@ body {
 
 .card-content {
     padding: 1rem 0;
+    flex: 1;
+    
+    hr {
+        margin: 0 auto;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+}
+
+.card-footer {
+    .card-footer-item {
+        max-width: fit-content;
+        border: 0;
+    }
+}
+
+.actions-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
+    gap: 1rem;
+
+    ion-icon {
+        font-size: 25px;
+    }
 }
 
 .relative {
