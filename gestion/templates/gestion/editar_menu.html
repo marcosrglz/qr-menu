@@ -1,4 +1,4 @@
-{% extends 'gestion_layout.html' %}
+{% extends 'dashboard_skeleton.html' %}
 
 {% block main_class %}create-menu-page{% endblock %}
 {% block title %}Editar Menú - Menudiño{% endblock %}
@@ -60,7 +60,7 @@
                                                 <button type="submit" class="button is-danger">Ocultar</button>
                                             </form>
                                         </td>
-                                	{% endif %}
+                                    {% endif %}
                                     <td style="width: fit-content;">
                                         <div style="display:flex; gap:1rem;">
                                             <a href="{% url 'gestion:editar-categoria' categoria.pk %}">Editar</a>

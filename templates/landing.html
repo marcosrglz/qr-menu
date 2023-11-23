@@ -24,14 +24,8 @@
         <link
             rel="stylesheet"
             type="text/css"
-            href="{% static 'normalize.css' %}"
-        />
-        <link
-            rel="stylesheet"
-            type="text/css"
             href="{% static 'dist/landing.css' %}"
         />
-        {% comment %} Favicon {% endcomment %}
         <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
         <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
         <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
@@ -47,6 +41,7 @@
             <div class="navbar-brand">
                 <img src="/static/images/landing/Menudiño - Logo.png"/>
             </div>
+            <hr>
             <div class="navbar-end">
                 <div>
                     <a class="has-text-black" href="{% url 'registrarse' %}">
@@ -84,8 +79,8 @@
                     <div class="card free-card">
                         <div class="card-content">
                             <h3 class="has-text-centered is-size-4 has-text-weight-bold mb-3">Gratuito</h3>
-                            <ul class="has-text-black p-0" style="width: fit-content;">
-                                <li class="list-item pb-2">Hasta un menú</li>
+                            <ul class="has-text-black">
+                                <li class="list-item mb-2">Hasta un menú</li>
                                 <li class="list-item">Precios ocultos</li>
                             </ul>
                         </div>

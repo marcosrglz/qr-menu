@@ -1,72 +1,103 @@
-{% extends 'gestion_layout.html' %}
+{% extends 'dashboard_skeleton.html' %}
 
 {% block content %}
-
-    <div x-cloak x-data="{ deleteURL: '' }">
-        <section class="section dashboard-section">
-            {% if menus %}
-                <h3 class="title px-2">Menús</h3>
-                <div class="table-container relative">
-                    <table class="table is-stripped" style="width: fit-content;">
-                        <thead>
-                            <tr>
-                                <th style="min-width:200px;">Nombre</th>
-                                <th>Descripción</th>
-                                <th>Estado</th>
-                                <th>Visitas</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for menu in menus %}
-                                <tr>
-                                    <td>{{ menu.nombre }}</td>
-                                    <td>{{ menu.descripcion }}</td>
-                                    {% if menu.estado == "oculto" %}
-                                        <td>
-                                            <form method="POST" action="{% url 'gestion:publicar-menu' menu.pk %}">
-                                                {% csrf_token %}
-                                                <button type="submit" class="button is-success has-text-white">Publicar</button>
-                                            </form>
-                                        </td>
-                                    {% elif menu.estado == "publicado" %}
-                                        <td>
-                                            <form method="POST" action="{% url 'gestion:ocultar-menu' menu.pk %}">
-                                                {% csrf_token %}
-                                                <button type="submit" class="button is-danger">Ocultar</button>
-                                            </form>
-                                        </td>
-                                    {% endif %}
-                                    <td>{{ menu.acceso_count }}</td>
-                                    <td style="width: fit-content;">
-                                        <div style="display:flex; gap:1rem;">
-                                            <a href="{% url 'core:menu-detail' menu.codigo %}">Previsualizar</a>
-                                            <a href="{% url 'gestion:editar-menu' menu.pk %}">Editar</a>
-                                            <a x-on:click="deleteURL = '{% url 'gestion:eliminar-menu' menu.pk %}'">Eliminar</a>
-                                            <a href="{% url 'gestion:generar-qr' menu.pk %}">Generar QR</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <div x-show="deleteURL" class="delete-menu-container" x-on:keyup.window.escape="deleteURL = ''">
-                        <form
-                            class="delete-menu-form"
-                            method="POST"
-                            x-bind:action="deleteURL"
-                            x-on:click.outside="deleteURL = ''">
-                            {% csrf_token %}
-                            <p>Seguro que quieres eliminar el menú?</p>
-                            <input x-on:click="deleteURL = ''" type="button" value="Cancelar" class="button" />
-                            <input type="submit" value="confirmar" class="button is-primary" />
-                        </form>
+  <div x-cloak x-data="{ deleteURL: '' }">
+    <section class="section has-background-white b-radius">
+      {% if menus %}
+        <h3 class="title px-2">Menús</h3>
+        <div class="table-container relative">
+          <table class="table is-stripped w-full">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+                <th>Visitas</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for menu in menus %}
+                <tr>
+                  <td>{{ menu.nombre }}</td>
+                  <td>{{ menu.descripcion }}</td>
+                  {% if menu.estado == "oculto" %}
+                    <td>
+                      <form
+                        method="POST"
+                        action="{% url 'gestion:publicar-menu' menu.pk %}"
+                      >
+                        {% csrf_token %}
+                        <button
+                          type="submit"
+                          class="button is-success is-outlined w-full"
+                        >
+                          Publicar
+                        </button>
+                      </form>
+                    </td>
+                  {% else %}
+                    <td>
+                      <form
+                        method="POST"
+                        action="{% url 'gestion:ocultar-menu' menu.pk %}"
+                      >
+                        {% csrf_token %}
+                        <button
+                          type="submit"
+                          class="button is-danger is-outlined w-full"
+                        >
+                          Ocultar
+                        </button>
+                      </form>
+                    </td>
+                  {% endif %}
+                  <td>{{ menu.acceso_count }}</td>
+                  <td>
+                    <div style="display: flex; gap: 1rem">
+                      <a href="{% url 'core:menu-detail' menu.codigo %}">
+                        Previsualizar
+                      </a>
+                      <a href="{% url 'gestion:editar-menu' menu.pk %}">Editar</a>
+                      <a x-on:click="deleteURL = '{% url 'gestion:eliminar-menu' menu.pk %}'">
+                        Eliminar
+                      </a>
+                      <a href="{% url 'gestion:generar-qr' menu.pk %}">Generar QR</a>
                     </div>
-                </div>
-            {% else %}
-                <h2 class="title is-5">Aún no has creado ningún menú</h2>
-            {% endif %}
-            <a class="button is-primary" href="{% url 'gestion:crear-menu' %}">Crear un menú</a>
-        </section>
-    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <div
+            x-show="deleteURL"
+            class="delete-menu-container"
+            x-on:keyup.window.escape="deleteURL = ''"
+          >
+            <form
+              class="delete-menu-form"
+              method="POST"
+              x-bind:action="deleteURL"
+              x-on:click.outside="deleteURL = ''"
+            >
+              {% csrf_token %}
+              <p>Seguro que quieres eliminar el menú?</p>
+              <input
+                x-on:click="deleteURL = ''"
+                type="button"
+                value="Cancelar"
+                class="button"
+              />
+              <input type="submit" value="confirmar" class="button is-primary" />
+            </form>
+          </div>
+        </div>
+      {% else %}
+        <h2 class="title is-5">Aún no has creado ningún menú</h2>
+      {% endif %}
+      <a class="button is-primary" href="{% url 'gestion:crear-menu' %}">
+        Crear un menú
+      </a>
+    </section>
+  </div>
 {% endblock %}

@@ -9,6 +9,14 @@ html {
     background-color: #f3f3f3d3;
 }
 
+hr {
+    display: none;
+    border-top: 1px solid;
+    margin: 0;
+    width: 100px;
+    color: #212121;
+}
+
 body {
     max-width: 1024px;
     margin: auto;
@@ -53,11 +61,18 @@ ul {
     }
 }
 
+.plan-content {
+    width: fit-content;
+}
+
 .right-footer {
     gap: 1rem;
 }
 
 @media screen and (max-width: $tablet) {
+    hr {
+        display: block;
+    }
     nav {
         flex-direction: column;
         justify-content: center;

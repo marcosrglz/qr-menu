@@ -405,7 +405,7 @@ class OcultarMenuView(
         return models.Menu.objects.filter(usuario=self.request.user)
 
     def get_success_url(self):
-        return reverse_lazy("gestion:editar-menu")
+        return reverse_lazy("gestion:dashboard")
 
 
 # Categories States

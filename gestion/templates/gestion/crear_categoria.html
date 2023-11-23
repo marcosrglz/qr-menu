@@ -1,4 +1,4 @@
-{% extends 'gestion_layout.html' %}
+{% extends 'dashboard_skeleton.html' %}
 
 {% block main_class %}create-menu-page{% endblock %}
 {% block title %}Crear Categoría | Menudiño{% endblock %}
@@ -6,8 +6,8 @@
 {% block content %}
 
     <div
-        class="container is-flex is-flex-direction-column is-justify-content-center is-align-content-center my-6"
-        style="width: 350px;">
+        class="column is-one-quarter mx-auto is-flex is-flex-direction-column is-justify-content-center is-align-content-center my-6"
+    >
         <form method="POST" action="{% url 'gestion:crear-categoria' menu.pk %}" class="create-menu-form">
             {% csrf_token %}
             {% for field in form.visible_fields %}
