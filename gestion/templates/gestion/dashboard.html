@@ -1,103 +1,32 @@
 {% extends 'dashboard_skeleton.html' %}
 
 {% block content %}
-  <div x-cloak x-data="{ deleteURL: '' }">
-    <section class="section has-background-white b-radius">
+  <div  class="mt-6" x-cloak x-data="{ deleteURL: '' }">
+    <div class="is-flex is-justify-content-space-between px-2">
+      <h3 class="title">Menús</h3>
+      <a class="button is-primary" href="{% url 'gestion:crear-menu' %}">
+        Crear un menú
+      </a>
+    </div>
+    <section id="menu-cards">
       {% if menus %}
-        <h3 class="title px-2">Menús</h3>
-        <div class="table-container relative">
-          <table class="table is-stripped w-full">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Estado</th>
-                <th>Visitas</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for menu in menus %}
-                <tr>
-                  <td>{{ menu.nombre }}</td>
-                  <td>{{ menu.descripcion }}</td>
-                  {% if menu.estado == "oculto" %}
-                    <td>
-                      <form
-                        method="POST"
-                        action="{% url 'gestion:publicar-menu' menu.pk %}"
-                      >
-                        {% csrf_token %}
-                        <button
-                          type="submit"
-                          class="button is-success is-outlined w-full"
-                        >
-                          Publicar
-                        </button>
-                      </form>
-                    </td>
-                  {% else %}
-                    <td>
-                      <form
-                        method="POST"
-                        action="{% url 'gestion:ocultar-menu' menu.pk %}"
-                      >
-                        {% csrf_token %}
-                        <button
-                          type="submit"
-                          class="button is-danger is-outlined w-full"
-                        >
-                          Ocultar
-                        </button>
-                      </form>
-                    </td>
-                  {% endif %}
-                  <td>{{ menu.acceso_count }}</td>
-                  <td>
-                    <div style="display: flex; gap: 1rem">
-                      <a href="{% url 'core:menu-detail' menu.codigo %}">
-                        Previsualizar
-                      </a>
-                      <a href="{% url 'gestion:editar-menu' menu.pk %}">Editar</a>
-                      <a x-on:click="deleteURL = '{% url 'gestion:eliminar-menu' menu.pk %}'">
-                        Eliminar
-                      </a>
-                      <a href="{% url 'gestion:generar-qr' menu.pk %}">Generar QR</a>
-                    </div>
-                  </td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-          <div
-            x-show="deleteURL"
-            class="delete-menu-container"
-            x-on:keyup.window.escape="deleteURL = ''"
-          >
-            <form
-              class="delete-menu-form"
-              method="POST"
-              x-bind:action="deleteURL"
-              x-on:click.outside="deleteURL = ''"
-            >
-              {% csrf_token %}
-              <p>Seguro que quieres eliminar el menú?</p>
-              <input
-                x-on:click="deleteURL = ''"
-                type="button"
-                value="Cancelar"
-                class="button"
-              />
-              <input type="submit" value="confirmar" class="button is-primary" />
-            </form>
-          </div>
+        <div class="columns is-multiline m-0" id="grid">
+          {% for menu in menus %}
+            <div class="column is-6 is-4-widescreen is-flex">
+              <div class="card is-menu">
+                <div class="card-header">
+                  <h5 class="card-header-title">{{ menu.nombre }}</h5>
+                </div>
+                <div class="card-content">
+                  {{ menu.descripcion }}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
         </div>
       {% else %}
         <h2 class="title is-5">Aún no has creado ningún menú</h2>
       {% endif %}
-      <a class="button is-primary" href="{% url 'gestion:crear-menu' %}">
-        Crear un menú
-      </a>
     </section>
   </div>
 {% endblock %}

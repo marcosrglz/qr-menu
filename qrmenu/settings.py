@@ -155,4 +155,4 @@ MESSAGE_TAGS = {
 }
 
 # Número Menús
-MAX_MENUS = 3
+MAX_MENUS = 5
