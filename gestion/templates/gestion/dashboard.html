@@ -32,7 +32,7 @@
                       x-show="deleteURL"
                       class="delete-menu-container"
                       x-on:keyup.window.escape="deleteURL = ''"
-                      >
+                    >
                       <form
                         class="delete-menu-form"
                         method="POST"
@@ -55,11 +55,11 @@
             </div>
           {% endfor %}
           {% if menus|length <= max_menus %}
-          <div class="column is-6 is-4-widescreen is-flex">
-            <a class="card is-menu add-menu-card" href="{% url 'gestion:crear-menu' %}">
-              <span>+</span>
-            </a>
-          </div>
+            <div class="column is-6 is-4-widescreen is-flex">
+              <a class="card is-menu add-menu-card" href="{% url 'gestion:crear-menu' %}">
+                <span>+</span>
+              </a>
+            </div>
           {% endif%}
         </div>
       {% else %}

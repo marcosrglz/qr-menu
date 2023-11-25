@@ -85,18 +85,18 @@
         {% if messages %}
           <div class="px-5">
             {% for message in messages %}
-            <div class="container">
-              <div
-                x-cloak
-                x-data="{ show: true }"
-                x-show="show"
-                x-transition
-                class="notification {{ message.tags }} is-light"
+              <div class="container">
+                <div
+                  x-cloak
+                  x-data="{ show: true }"
+                  x-show="show"
+                  x-transition
+                  class="notification {{ message.tags }} is-light"
                 >
-                <button x-on:click="show = false" class="delete" aria-label="delete"></button>
-                {{ message }}
+                  <button x-on:click="show = false" class="delete" aria-label="delete"></button>
+                  {{ message }}
+                </div>
               </div>
-            </div>
             {% endfor %}
           </div>
         {% endif %}

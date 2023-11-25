@@ -4,11 +4,10 @@
 {% block title %}Crear Menú | Menudiño{% endblock %}
 
 {% block content %}
-
     <div class="container is-centered">
         <div class="card is-creation-card">
             <div class="card-header has-text-centered">
-              <h4 class="card-header-title title is-4">Crear menú</h4>
+                <h4 class="card-header-title title is-4">Crear menú</h4>
             </div>
             <form method="POST" action="{% url 'gestion:crear-menu' %}" class="create-menu-form">
                 {% csrf_token %}
@@ -25,7 +24,6 @@
                     <button type="submit" class="button is-primary">Confirmar</button>
                 </div>
             </form>
-          </div>
         </div>
     </div>
 {% endblock %}

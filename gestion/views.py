@@ -2,6 +2,7 @@ from io import BytesIO
 
 import qrcode
 from django import forms
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
 from django.shortcuts import HttpResponse, HttpResponseRedirect
@@ -9,7 +10,6 @@ from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views import generic
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from django.conf import settings
 
 from core import models
 from gestion import forms as gestion_forms
