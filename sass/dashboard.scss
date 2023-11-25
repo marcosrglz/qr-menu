@@ -11,6 +11,15 @@ body {
     font-size: 1rem;
 }
 
+#userBrand:hover {
+    background-color: $main-color-hover;
+    cursor: pointer;
+}
+
+.is-primary {
+    background-color: $main-color !important;
+}
+
 .dashboard-container {
     min-height: 100svh;
 }
@@ -30,54 +39,98 @@ body {
     justify-content: space-between !important;
 }
 
-.is-menu {
+.card.is-menu {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
     max-width: 100%;
     padding: 1.25rem 1rem;
-}
 
-.card-header {
-    box-shadow: none;
-
-    .card-header-title {
-        max-width: 100%;
-        max-height: 100%;
-        text-overflow: elipsis;
-        padding: 0;
-    }
-}
-
-.card-content {
-    padding: 1rem 0;
-    flex: 1;
+    .card-header {
+        box-shadow: none;
     
-    hr {
+        .card-header-title {
+            max-width: 100%;
+            max-height: 100%;
+            padding: 0;
+        }
+    }
+    
+    .card-content {
+        padding: 1rem 0;
+        flex: 1;
+        
+        hr {
+            margin: 0 auto;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+    }
+    
+    .card-footer {
+        .card-footer-item {
+            max-width: fit-content;
+            border: 0;
+        }
+    }
+    
+    .actions-container {
+        display: flex;
+        justify-content: center;
         margin: 0 auto;
-        margin-top: 2rem;
-        margin-bottom: 1rem;
+        width: 100%;
+        gap: 1rem;
+    
+        ion-icon {
+            font-size: 25px;
+        }
     }
 }
 
-.card-footer {
-    .card-footer-item {
-        max-width: fit-content;
+.card.is-creation-card {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 100%;
+    max-width: 100%;
+    padding: 1.5rem 1rem;
+
+    .card-header {
+        box-shadow: none;
+
+        .card-header-title {
+            text-align: center !important;
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .card-content {
+
+    }
+
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
         border: 0;
+        padding: 0 1.5rem;
     }
 }
 
-.actions-container {
+.add-menu-card {
+    background-color: $main-color;
+    color: white;
     display: flex;
     justify-content: center;
-    margin: 0 auto;
-    width: 100%;
-    gap: 1rem;
+    align-items: center;
+    font-size: 100px;
+}
 
-    ion-icon {
-        font-size: 25px;
-    }
+.add-menu-card:hover {
+    background-color: $main-color-hover;
+    color: white;
 }
 
 .relative {

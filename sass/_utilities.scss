@@ -9,3 +9,8 @@
 .b-radius {
     border-radius: 10px;
 }
+
+.container.is-centered {
+    display: flex;
+    justify-content: center;
+}

@@ -18,8 +18,7 @@ hr {
 }
 
 body {
-    max-width: 1024px;
-    margin: auto;
+    margin: 0;
 }
 
 a:hover {
@@ -28,6 +27,13 @@ a:hover {
 
 header {
     background-color: $main-color;
+
+    .columns {
+        margin: 0 auto;
+    }
+    #header-left-col {
+        flex: 1 1 max-content !important;
+    }
 }
 
 ul {
@@ -73,10 +79,11 @@ ul {
     hr {
         display: block;
     }
-    nav {
+    #landing-container {
         flex-direction: column;
         justify-content: center;
         gap: 1rem;
+        margin: 0 auto;
     }
 
     header {

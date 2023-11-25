@@ -2,12 +2,8 @@
 
 {% block content %}
   <div  class="mt-6" x-cloak x-data="{ deleteURL: '' }">
-    <div class="is-flex is-justify-content-space-between px-2">
+    <div class="is-flex is-justify-content-space-between px-3">
       <h3 class="title">Menús</h3>
-      <p x-text="deleteURL"></p>
-      <a class="button is-primary" href="{% url 'gestion:crear-menu' %}">
-        Crear un menú
-      </a>
     </div>
     <section id="menu-cards">
       {% if menus %}
@@ -20,7 +16,6 @@
                 </div>
                 <div class="card-content">
                   {{ menu.descripcion }}
-                  {% comment %} <hr width="60" /> {% endcomment %}
                 </div>
                 <div class="card-footer">
                   <div class="actions-container">
@@ -37,7 +32,7 @@
                       x-show="deleteURL"
                       class="delete-menu-container"
                       x-on:keyup.window.escape="deleteURL = ''"
-                    >
+                      >
                       <form
                         class="delete-menu-form"
                         method="POST"
@@ -58,10 +53,14 @@
                 </div>
               </div>
             </div>
-            {% endfor %}
-            {% if menus|length <= max_menus %}
-              <p>hola</p>
-            {% endif%}
+          {% endfor %}
+          {% if menus|length <= max_menus %}
+          <div class="column is-6 is-4-widescreen is-flex">
+            <a class="card is-menu add-menu-card" href="{% url 'gestion:crear-menu' %}">
+              <span>+</span>
+            </a>
+          </div>
+          {% endif%}
         </div>
       {% else %}
         <h2 class="title is-5">Aún no has creado ningún menú</h2>

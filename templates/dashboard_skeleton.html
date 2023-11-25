@@ -42,10 +42,10 @@
   <body>
     <div class="dashboard-container has-background-light">
       <header>
-        <nav class="navbar is-dark">
+        <nav class="navbar is-primary">
           <div class="container is-flex is-justify-content-space-evenly is-align-items-center">
             <div class="navbar-brand is-flex-grow-1">
-              <a class="navbar-item" href="{% url "gestion:dashboard" %}">
+              <a id="userBrand" class="navbar-item" href="{% url "gestion:dashboard" %}">
                 <strong>{{ request.user }}</strong>
               </a>
             </div>
