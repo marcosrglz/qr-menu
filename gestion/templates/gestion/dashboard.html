@@ -5,7 +5,7 @@
     <div class="is-flex is-justify-content-space-between px-3">
       <h3 class="title">Menús</h3>
     </div>
-    <section id="menu-cards">
+    <section data-el="menu-cards">
       {% if menus %}
         <div class="columns is-multiline m-0" id="grid">
           {% for menu in menus %}
@@ -28,29 +28,29 @@
                     <a class="card-footer-item" x-on:click="deleteURL = '{% url 'gestion:eliminar-menu' menu.pk %}'">
                       <ion-icon name="trash-outline" title="Eliminar menú"></ion-icon>
                     </a>
-                    <div
-                      x-show="deleteURL"
-                      class="delete-menu-container"
-                      x-on:keyup.window.escape="deleteURL = ''"
-                    >
-                      <form
-                        class="delete-menu-form"
-                        method="POST"
-                        x-bind:action="deleteURL"
-                      >
-                        {% csrf_token %}
-                        <p>Seguro que quieres eliminar el menú?</p>
-                        <input
-                          x-on:click="deleteURL = ''"
-                          type="button"
-                          value="Cancelar"
-                          class="button"
-                        />
-                        <input type="submit" value="confirmar" class="button is-primary" />
-                      </form>
-                    </div>
                   </div>
                 </div>
+              </div>
+              <div
+                x-show="deleteURL"
+                class="delete-entity-container"
+                x-on:keyup.window.escape="deleteURL = ''"
+                >
+                <form
+                  class="delete-entity-form"
+                  method="POST"
+                  x-bind:action="deleteURL"
+                  >
+                    {% csrf_token %}
+                    <p>Seguro que quieres eliminar el menú?</p>
+                    <input
+                      x-on:click="deleteURL = ''"
+                      type="button"
+                      value="Cancelar"
+                      class="button"
+                    />
+                  <input type="submit" value="confirmar" class="button is-primary" />
+                </form>
               </div>
             </div>
           {% endfor %}

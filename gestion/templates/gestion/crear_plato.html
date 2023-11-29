@@ -7,7 +7,7 @@
     <div class="container is-centered">
         <div class="card is-action-card">
             <div class="card-header has-text-centered">
-                <h4 class="card-header-title title is-4">Crear categoría</h4>
+                <h4 class="card-header-title title is-4">Crear plato</h4>
             </div>
             <form method="POST" action="{% url 'gestion:crear-plato' categoria.pk %}" class="create-menu-form">
                 {% csrf_token %}

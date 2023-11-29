@@ -78,10 +78,10 @@ body {
         width: 100%;
         gap: 1rem;
     
-        ion-icon {
-            font-size: 25px;
-        }
     }
+}
+ion-icon {
+    font-size: 24px;
 }
 
 .card.is-action-card {
@@ -125,17 +125,15 @@ body {
     color: white;
 }
 
-// Tablas
-
-.info-section {
+.table-section {
     width: 100%;
 }
 
-.info-container {
+.table-header {
     width: 100%;
 }
 
-.delete-menu-container {
+.delete-entity-container {
     position: fixed;
     width: 100svw;
     height: 100svh;
@@ -149,9 +147,8 @@ body {
     z-index: 30000;
 }
 
-.delete-menu-form {
+.delete-entity-form {
     text-align: center;
-    width: 300px;
     color: rgb(31, 31, 31);
     background-color: #fff;
     border-radius: 1rem;
@@ -168,9 +165,44 @@ body {
     gap: 1rem;
 }
 
+.actions-td {
+    display: flex;
+    gap: 1rem;
+}
+
+section[data-el="categories-container"] {
+    height: fit-content;
+    background-color: white;
+    box-shadow: 0 .5em 1em -0.125em rgba(10,10,10,.1),0 0px 0 1px rgba(10,10,10,.02);
+    color: #4a4a4a;
+    max-width: 100%;
+    position: relative;
+}
+
+div[data-el="edit-plate-card"].card-footer {
+    display: flex;
+    justify-content: ce;
+    gap: 1rem;
+}
+
+.edit-entity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 8px;
+}
+
 @media screen and (min-width: 1024px) {
-    .editar-menu-desktop {
+    .edit-entity {
         display: flex;
         flex-direction: row;
+        align-items: start;
+        gap: 1rem;
+        margin: 0;
+    }
+
+    .card.is-action-card {
+        max-width: 400px;
     }
 }

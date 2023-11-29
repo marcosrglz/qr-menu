@@ -4,76 +4,87 @@
 {% block title %}Editar Categoría - Menudiño{% endblock %}
 
 {% block content %}
-    <div class="editar-menu-desktop">
-        <section class="section is-flex is-flex-direction-column is-flex-grow-2">
-            <h3 class="title">Categoría</h3>
-            <div
-                class="container is-flex is-flex-direction-column "
-                style="width: 320px;">
-                <form method="POST">
-                    {% csrf_token %}
-                    {% for field in form.visible_fields %}
-                        {% include "partials/field.html" with field=field %}
-                    {% endfor %}
-                    <div class="is-flex is-justify-content-center" style="gap: 1rem;">
-                        <a href="{% url 'gestion:dashboard' %}" class="button">Cancelar</a>
-                        <button type="submit" class="button is-primary">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </section>
-        <section x-cloak x-data="{ deleteURL: '' }" class="info-section section is-flex is-flex-direction-column is-align-items-center is-flex-grow-2">
-            <div class="info-container is-flex is-justify-content-space-between is-flex-wrap-wrap">
-                <h3 class="title">Platos</h3>
-                <div class="edit-buttons-container">
-                    <a class="button" href="{% url 'gestion:dashboard' %}">Volver al panel</a>
-                    <a class="button is-primary" href="{% url 'gestion:crear-plato' categoria.pk %}">Crear plato</a>
-                </div>
-            </div>
-            <div class="info-section table-container">
-                {% if object.plato_set.count > 0 %}
-                    <table class="table is-stripped">
-                        <thead>
-                            <tr>
-                                <th style="min-width:200px;">Nombre</th>
-                                <th>Descripcion</th>
-                                <th class="has-text-right">Precio</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for plato in object.plato_set.all %}
-                                <tr>
-                                    <td>{{ plato.nombre }}</td>
-                                    <td style="min-width: 200px;">{{ plato.descripcion }}</td>
-                                    <td class="has-text-right">{{ plato.precio|floatformat:"2g" }} €</td>
-                                    <td>
-                                        <div style="display:flex; gap:1rem;">
-                                            <a href="{% url 'gestion:editar-plato' plato.pk %}">Editar</a>
-                                            <a x-on:click="deleteURL = '{% url 'gestion:eliminar-plato' plato.pk %}'">Eliminar</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <div x-show="deleteURL" class="delete-menu-container" x-on:keyup.window.escape="deleteURL = ''">
-                        <form
-                            class="delete-menu-form"
-                            method="POST"
-                            x-bind:action="deleteURL"
-                            x-on:click.outside="deleteURL = ''">
-                            {% csrf_token %}
-                            <p>Seguro que quieres eliminar el plato?</p>
-                            <input x-on:click="deleteURL = ''" type="button" value="Cancelar" class="button" />
-                            <input type="submit" value="confirmar" class="button is-primary" />
-                        </form>
-                    </div>
-                {% else %}
-                    <h2 class="title is-5">Aún no has creado ningún plato</h2>
-                {% endif %}
-            </div>
-        </section>
+  <div class="edit-entity">
+    <div data-el="edit-category-card" class="card is-action-card">
+      <div class="card-header has-text-centered">
+        <h4 class="card-header-title title is-4">Editar Categoría</h4>
+      </div>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="card-content">
+          {% for field in form.visible_fields %}
+            {% include "partials/field.html" with field=field %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <div class="has-text-danger has-text-centered mb-3">{{ error }}</div>
+          {% endfor %}
+        </div>
+        <div class="card-footer is-flex is-justify-content-center">
+          <button type="submit" class="button is-primary">Guardar</button>
+        </div>
+      </form>
     </div>
+    <section 
+      x-cloak x-data="{ deleteURL: '' }" 
+      class="section table-section is-flex is-flex-direction-column is-align-items-center is-flex-grow-2 has-background-white b-radius"
+      data-el="categories-container"
+      >
+        <div class="table-header is-flex is-justify-content-space-between is-flex-wrap-wrap">
+          <h3 class="title">Platos</h3>
+          <div class="edit-buttons-container">
+            <a class="button" href="{% url 'gestion:dashboard' %}">Volver al panel</a>
+            <a class="button is-primary" href="{% url 'gestion:crear-plato' categoria.pk %}">Crear plato</a>
+          </div>
+        </div>
+        <div class="table-container">
+          {% if object.plato_set.count > 0 %}
+            <table class="table is-stripped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th class="has-text-right">Precio</th>
+                        <th></th>
+                    </tr>
+                </thead>
+              <tbody>
+                {% for plato in object.plato_set.all %}
+                  <tr>
+                    <td>{{ plato.nombre }}</td>
+                    <td>{{ plato.descripcion }}</td>
+                    <td class="has-text-right">{{ plato.precio|floatformat:"2g" }} €</td>
+                    <td>
+                      <div class="actions-td">
+                        <a href="{% url 'gestion:editar-plato' plato.pk %}">
+                          <ion-icon name="create-outline" title="Editar menú"></ion-icon>
+                        </a>
+                        <a x-on:click="deleteURL = '{% url 'gestion:eliminar-plato' plato.pk %}'">
+                          <ion-icon name="trash-outline" title="Eliminar menú"></ion-icon>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div x-show="deleteURL" class="delete-entity-container" x-on:keyup.window.escape="deleteURL = ''">
+              <form
+                  class="delete-entity-form"
+                  method="POST"
+                  x-bind:action="deleteURL"
+                  x-on:click.outside="deleteURL = ''"
+                >
+                  {% csrf_token %}
+                  <p>Seguro que quieres eliminar el plato?</p>
+                  <input x-on:click="deleteURL = ''" type="button" value="Cancelar" class="button" />
+                  <input type="submit" value="confirmar" class="button is-primary" />
+              </form>
+            </div>
+          {% else %}
+            <h2 class="title is-5">Aún no has creado ningún plato</h2>
+          {% endif %}
+        </div>
+    </section>
+  </div>
 
 {% endblock %}
