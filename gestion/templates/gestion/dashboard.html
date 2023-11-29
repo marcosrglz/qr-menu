@@ -12,12 +12,19 @@
             <div class="column is-6 is-4-widescreen is-flex">
               <div class="card is-entity">
                 <div class="card-header">
+                  <div class="actual-status">
+                    {% if menu.estado == "publicado" %}
+                      <div class="entity-public"></div>
+                    {% else %}
+                      <div class="entity-hidden"></div>
+                    {% endif %}
+                  </div>
                   <h4 class="card-header-title title is-4">{{ menu.nombre }}</h4>
                 </div>
                 <div class="card-content">
                   {{ menu.descripcion }}
                 </div>
-                <div class="card-footer">
+                <div class="card-footer is-flex is-flex-direction-column">
                   <div class="actions-container">
                     <a class="card-footer-item" href="{% url 'core:menu-detail' menu.codigo %}">
                       <ion-icon name="eye-outline" title="Previsualizar menú"></ion-icon>
@@ -28,6 +35,19 @@
                     <a class="card-footer-item" x-on:click="deleteURL = '{% url 'gestion:eliminar-menu' menu.pk %}'">
                       <ion-icon name="trash-outline" title="Eliminar menú"></ion-icon>
                     </a>
+                  </div>
+                  <div class="status-container is-flex is-justify-content-center mt-2">
+                    {% if menu.estado == "publicado" %}
+                      <form method="POST" action="{% url 'gestion:ocultar-menu' menu.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="button is-danger">Ocultar</button>
+                      </form>
+                    {% else %}
+                      <form method="POST" action="{% url 'gestion:publicar-menu' menu.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="button is-success has-text-white">Publicar</button>
+                      </form>
+                    {% endif %}
                   </div>
                 </div>
               </div>

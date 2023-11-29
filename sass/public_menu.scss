@@ -12,6 +12,11 @@ body {
   height: 100vh;
 }
 
+.menu-wrapper {
+  min-height: 100%;
+  min-width: 100%;
+}
+
 /* Lineas de separación */
 
 hr {
@@ -21,11 +26,6 @@ hr {
   border-right: 0;
   border-bottom: 1px solid #e4e4e7;
   width: 200px;
-}
-
-.menu-wrapper {
-  min-height: 667px;
-  min-width: 394px;
 }
 
 /* header selector de categoría */
@@ -207,5 +207,10 @@ main {
     border-radius: 50px;
     max-width: 400px;
     max-height: 700px;
+  }
+
+  .menu-wrapper {
+    min-height: 667px;
+    min-width: 394px;
   }
 }
