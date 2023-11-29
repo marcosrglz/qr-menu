@@ -59,7 +59,7 @@
                         <button type="submit" class="button is-success has-text-white">Publicar</button>
                       </form>
                     </td>
-                  {% elif categoria.estado == "publicada" %}
+                  {% else %}
                     <td>
                     <form method="POST" action="{% url 'gestion:ocultar-categoria' categoria.pk %}">
                         {% csrf_token %}
