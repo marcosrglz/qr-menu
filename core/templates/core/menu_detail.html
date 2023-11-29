@@ -28,12 +28,11 @@
             defer
             src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
         ></script>
-        <title>{{ object.nombre }}</title>
-        {% comment %} Favicon {% endcomment %}
+        <title>{{ object.nombre }} | Menudiño</title>
         <link
             rel="apple-touch-icon"
             sizes="180x180"
-            href="{% static 'apple-touch-icon.png' %}"
+            href="{% static 'images/favicon/apple-touch-icon.png' %}"
         />
         <link
             rel="icon"
@@ -84,18 +83,19 @@
                                     <h2>{{ categoria.nombre }}</h2>
                                 </header>
                                 <ul class="dish-list">
-                                    {% for plato in categoria.plato_set.all %} {% if loop.counter > 0 %}
-                                        <hr />
+                                    {% for plato in categoria.plato_set.all %}
+                                    {% if forloop.counter > 1 %}
+                                        <hr/>
                                     {% endif %}
                                         <li class="dish-item">
                                             <div class="dish-info">
                                                 <div>
                                                     <p class="dish-name">{{ plato.nombre }}</p>
                                                     <p class="dish-description">{{ plato.descripcion }}</p>
-                                                    <p class="dish-price">
-                                                        {{ plato.precio|floatformat:"2g" }} €
-                                                    </p>
                                                 </div>
+                                                <p class="dish-price">
+                                                    {{ plato.precio|floatformat:"2g" }} €
+                                                </p>
                                             </div>
                                             {% if plato.imagen %}
                                                 <img class="dish-image" src="{{ plato.imagen.url }}" />
