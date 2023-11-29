@@ -4,21 +4,26 @@
 {% block title %}Crear Plato | Menudiño{% endblock %}
 
 {% block content %}
-
-    <div
-        class="container is-flex is-flex-direction-column is-justify-content-center is-align-content-center my-6"
-        style="width: 350px;">
-        <form method="POST" action="{% url 'gestion:crear-plato' categoria.pk %}" class="create-menu-form">
-            {% csrf_token %}
-            {% for field in form.visible_fields %}
-                {% include "partials/field.html" with field=field %}
-            {% endfor %}
-            <div class="is-flex is-justify-content-center" style="gap: 2rem;">
-                <a href="{% url 'gestion:editar-categoria' categoria.pk%}" class="button">Cancelar</a>
-                <button type="submit" class="button is-primary">Confirmar</button>
+    <div class="container is-centered">
+        <div class="card is-action-card">
+            <div class="card-header has-text-centered">
+                <h4 class="card-header-title title is-4">Crear categoría</h4>
             </div>
-        </form>
-        <div style="height: 20svh;"></div>
+            <form method="POST" action="{% url 'gestion:crear-plato' categoria.pk %}" class="create-menu-form">
+                {% csrf_token %}
+                <div class="card-content">
+                    {% for field in form.visible_fields %}
+                        {% include "partials/field.html" with field=field %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="has-text-danger has-text-centered mb-3">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'gestion:editar-categoria' categoria.pk%}" class="button">Cancelar</a>
+                    <button type="submit" class="button is-primary">Confirmar</button>
+                </div>
+            </form>
+        </div>
     </div>
-
 {% endblock %}

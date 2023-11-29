@@ -10,7 +10,7 @@
         <div class="columns is-multiline m-0" id="grid">
           {% for menu in menus %}
             <div class="column is-6 is-4-widescreen is-flex">
-              <div class="card is-menu">
+              <div class="card is-entity">
                 <div class="card-header">
                   <h4 class="card-header-title title is-4">{{ menu.nombre }}</h4>
                 </div>
@@ -56,7 +56,7 @@
           {% endfor %}
           {% if menus|length <= max_menus %}
             <div class="column is-6 is-4-widescreen is-flex">
-              <a class="card is-menu add-menu-card" href="{% url 'gestion:crear-menu' %}">
+              <a class="card is-entity add-entity-card" href="{% url 'gestion:crear-menu' %}">
                 <span>+</span>
               </a>
             </div>

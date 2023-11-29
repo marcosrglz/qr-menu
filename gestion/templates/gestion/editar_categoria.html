@@ -32,7 +32,7 @@
             </div>
             <div class="info-section table-container">
                 {% if object.plato_set.count > 0 %}
-                    <table class="table is-stripped" style="width: fit-content;">
+                    <table class="table is-stripped">
                         <thead>
                             <tr>
                                 <th style="min-width:200px;">Nombre</th>
@@ -47,7 +47,7 @@
                                     <td>{{ plato.nombre }}</td>
                                     <td style="min-width: 200px;">{{ plato.descripcion }}</td>
                                     <td class="has-text-right">{{ plato.precio|floatformat:"2g" }} €</td>
-                                    <td style="width: fit-content;">
+                                    <td>
                                         <div style="display:flex; gap:1rem;">
                                             <a href="{% url 'gestion:editar-plato' plato.pk %}">Editar</a>
                                             <a x-on:click="deleteURL = '{% url 'gestion:eliminar-plato' plato.pk %}'">Eliminar</a>

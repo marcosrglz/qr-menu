@@ -16,10 +16,6 @@ body {
     cursor: pointer;
 }
 
-.is-primary {
-    background-color: $main-color !important;
-}
-
 .dashboard-container {
     min-height: 100svh;
 }
@@ -39,7 +35,7 @@ body {
     justify-content: space-between !important;
 }
 
-.card.is-menu {
+.card.is-entity {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -88,12 +84,12 @@ body {
     }
 }
 
-.card.is-creation-card {
+.card.is-action-card {
     display: flex;
     flex-direction: column;
-    width: 350px;
     height: 100%;
-    max-width: 100%;
+    width: 100%;
+    max-width: 500px;
     padding: 1.5rem 1rem;
 
     .card-header {
@@ -106,10 +102,6 @@ body {
         }
     }
 
-    .card-content {
-
-    }
-
     .card-footer {
         display: flex;
         justify-content: space-between;
@@ -119,7 +111,7 @@ body {
     }
 }
 
-.add-menu-card {
+.add-entity-card {
     background-color: $main-color;
     color: white;
     display: flex;
@@ -128,14 +120,12 @@ body {
     font-size: 100px;
 }
 
-.add-menu-card:hover {
+.add-entity-card:hover {
     background-color: $main-color-hover;
     color: white;
 }
 
-.relative {
-    position: relative;
-}
+// Tablas
 
 .info-section {
     width: 100%;
@@ -176,14 +166,6 @@ body {
 .edit-buttons-container {
     display: flex;
     gap: 1rem;
-}
-
-.textarea {
-    resize: vertical;
-}
-
-.editar-menu-desktop:first-child h3 {
-    text-align: center;
 }
 
 @media screen and (min-width: 1024px) {

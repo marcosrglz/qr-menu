@@ -5,23 +5,25 @@
 
 {% block content %}
     <div class="editar-menu-desktop">
-        <section class="section is-flex is-flex-direction-column is-flex-grow-2">
-            <h3 class="title">Menú</h3>
-            <div
-                class="container is-flex is-flex-direction-column is-align-content-center"
-                style="width: 320px;">
-                <form method="POST">
-                    {% csrf_token %}
+        <div class="card is-action-card">
+            <div class="card-header has-text-centered">
+                <h4 class="card-header-title title is-4">Editar Menú</h4>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card-content">
                     {% for field in form.visible_fields %}
                         {% include "partials/field.html" with field=field %}
                     {% endfor %}
-                    <div class="is-flex is-justify-content-center" style="gap: 1rem;">
-                        <a href="{% url 'gestion:dashboard' %}" class="button">Cancelar</a>
-                        <button type="submit" class="button is-primary">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </section>
+                    {% for error in form.non_field_errors %}
+                        <div class="has-text-danger has-text-centered mb-3">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="button is-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
         <section x-cloak x-data="{ deleteURL: '' }" class="info-section section is-flex is-flex-direction-column is-align-items-center is-flex-grow-2">
             <div class="info-container is-flex is-justify-content-space-between is-flex-wrap-wrap">
                 <h3 class="title">Categorías</h3>
@@ -32,7 +34,7 @@
             </div>
             <div class="table-container">
                 {% if object.categoria_set.count > 0 %}
-                    <table class="table is-stripped" style="width: fit-content;">
+                    <table class="table is-stripped">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
@@ -61,7 +63,7 @@
                                             </form>
                                         </td>
                                     {% endif %}
-                                    <td style="width: fit-content;">
+                                    <td>
                                         <div style="display:flex; gap:1rem;">
                                             <a href="{% url 'gestion:editar-categoria' categoria.pk %}">Editar</a>
                                             <a x-on:click="deleteURL = '{% url 'gestion:eliminar-categoria' categoria.pk %}'">Eliminar</a>

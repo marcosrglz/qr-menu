@@ -14,3 +14,33 @@
     display: flex;
     justify-content: center;
 }
+
+.relative {
+    position: relative;
+}
+
+.textarea {
+    resize: vertical;
+}
+
+.table-container {
+    width: 100%;
+
+    .table {
+        width: 100%;
+    }
+}
+
+.is-primary {
+    background-color: $main-color !important;
+}
+
+button.is-primary:hover {
+    background-color: $main-color-hover !important;
+    cursor: pointer;
+}
+
+a.is-primary:hover {
+    background-color: $main-color-hover !important;
+    cursor: pointer;
+}
