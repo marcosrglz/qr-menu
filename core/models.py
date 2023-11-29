@@ -47,7 +47,7 @@ class Categoria(BaseModel):
 
 class Plato(BaseModel):
     nombre = models.CharField("Nombre", max_length=100)
-    precio = models.DecimalField("Precio", decimal_places=4, max_digits=8)
+    precio = models.DecimalField("Precio", decimal_places=2, max_digits=8)
     descripcion = models.TextField("Descripción")
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     imagen = models.ImageField("Imagen", null=True)

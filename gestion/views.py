@@ -2,6 +2,7 @@ from io import BytesIO
 
 import qrcode
 from django import forms
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
 from django.shortcuts import HttpResponse, HttpResponseRedirect
@@ -33,6 +34,7 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
                 "active": True,
             }
         ]
+        data["max_menus"] = settings.MAX_MENUS
         return data
 
 
