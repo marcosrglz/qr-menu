@@ -19,3 +19,8 @@ python manage.py migrate
 ```bash
 pip install -r requirements-dev.txt
 ```
+
+***bulma & sass***
+```bash
+npm ci
+```
