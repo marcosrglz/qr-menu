@@ -11,7 +11,7 @@ class MenuDetailViewTests(TestCase):
         Comprueba si la vista de menu-detail se renderiza
         """
         call_command("sampledata")
-        menu = models.Menu.objects.get(nombre="Carta Manduca")
+        menu = models.Menu.objects.get(nombre="Carta Demo")
         url = reverse("core:menu-detail", args=(menu.pk,))
 
         with self.assertNumQueries(2):

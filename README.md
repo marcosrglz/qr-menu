@@ -9,13 +9,10 @@ pip install -r requirements.txt
 
 ***migraciones***
 ```bash
-python manage.py makemigrations
-```
-```bash
 python manage.py migrate
 ```
 
-***linters***
+***dev tools***
 ```bash
 pip install -r requirements-dev.txt
 ```

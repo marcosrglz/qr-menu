@@ -1,3 +1,5 @@
+@import "_variables.scss";
+
 html {
   font-family: 'M PLUS Rounded 1c', sans-serif;
 }
@@ -73,8 +75,9 @@ main {
 
 .category-name {
   display: block;
-  background-color: rgb(149, 255, 183);
-  color: #27272a;
+  background-color: $main-color;
+  color: white;
+  font-weight: 400;
   padding: 0.8rem 1rem;
   box-sizing: border-box;
   border-radius: 0.8rem;
