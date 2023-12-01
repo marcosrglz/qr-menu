@@ -219,8 +219,6 @@ class CategoriaDeleteView(mixins.MessageMixin, LoginRequiredMixin, DeleteView):
 
 
 # Plates section
-
-
 class PlatoCreateView(mixins.MessageMixin, LoginRequiredMixin, UpdateView):
     model = models.Categoria
     form_class = gestion_forms.PlatoCreateForm

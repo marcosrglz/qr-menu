@@ -6,85 +6,86 @@
       <h3 class="title">Menús</h3>
     </div>
     <section data-el="menu-cards">
-      {% if menus %}
-        <div class="columns is-multiline m-0" id="grid">
-          {% for menu in menus %}
-            <div class="column is-6 is-4-widescreen is-flex">
-              <div class="card is-entity">
-                <div class="card-header">
-                  <div class="actual-status">
-                    {% if menu.estado == "publicado" %}
-                      <div class="entity-public"></div>
-                    {% else %}
-                      <div class="entity-hidden"></div>
-                    {% endif %}
-                  </div>
-                  <h4 class="card-header-title title is-4">{{ menu.nombre }}</h4>
+      <div class="columns is-multiline m-0" id="grid">
+        {% for menu in menus %}
+          <div class="column is-6 is-4-widescreen is-flex">
+            <div class="card is-entity">
+              <div class="card-header">
+                <div class="actual-status">
+                  {% if menu.estado == "publicado" %}
+                    <div class="entity-public"></div>
+                  {% else %}
+                    <div class="entity-hidden"></div>
+                  {% endif %}
                 </div>
-                <div class="card-content">
-                  {{ menu.descripcion }}
-                </div>
-                <div class="card-footer is-flex is-flex-direction-column">
-                  <div class="actions-container">
+                <h4 class="card-header-title title is-4">{{ menu.nombre }}</h4>
+              </div>
+              <div class="card-content">
+                {{ menu.descripcion }}
+              </div>
+              <div class="card-footer is-flex is-flex-direction-column">
+                <div class="actions-container">
+                  {% if menu.estado == "publicado" %}
                     <a class="card-footer-item" href="{% url 'core:menu-detail' menu.codigo %}" target="_blank">
                       <ion-icon name="eye-outline" title="Previsualizar menú"></ion-icon>
                     </a>
-                    <a class="card-footer-item" href="{% url 'gestion:editar-menu' menu.pk %}">
-                      <ion-icon name="create-outline" title="Editar menú"></ion-icon>
-                    </a>
-                    <a class="card-footer-item" x-on:click="deleteURL = '{% url 'gestion:eliminar-menu' menu.pk %}'">
-                      <ion-icon name="trash-outline" title="Eliminar menú"></ion-icon>
-                    </a>
-                  </div>
-                  <div class="status-container is-flex is-justify-content-center mt-2">
-                    {% if menu.estado == "publicado" %}
-                      <form method="POST" action="{% url 'gestion:ocultar-menu' menu.pk %}">
-                        {% csrf_token %}
-                        <button type="submit" class="button is-danger">Ocultar</button>
-                      </form>
-                    {% else %}
-                      <form method="POST" action="{% url 'gestion:publicar-menu' menu.pk %}">
-                        {% csrf_token %}
-                        <button type="submit" class="button is-success has-text-white">Publicar</button>
-                      </form>
-                    {% endif %}
-                  </div>
+                  {% endif %}
+                  <a class="card-footer-item" href="{% url 'gestion:editar-menu' menu.pk %}">
+                    <ion-icon name="create-outline" title="Editar menú"></ion-icon>
+                  </a>
+                  <a class="card-footer-item" x-on:click="deleteURL = '{% url 'gestion:eliminar-menu' menu.pk %}'">
+                    <ion-icon name="trash-outline" title="Eliminar menú"></ion-icon>
+                  </a>
+                  <a class="card-footer-item" href="{% url 'gestion:generar-qr' menu.pk %}">
+                    <ion-icon name="qr-code-outline" title="Descargar QR"></ion-icon>
+                  </a>
+                </div>
+                <div class="status-container is-flex is-justify-content-center mt-2">
+                  {% if menu.estado == "publicado" %}
+                    <form method="POST" action="{% url 'gestion:ocultar-menu' menu.pk %}">
+                      {% csrf_token %}
+                      <button type="submit" class="button is-danger">Ocultar</button>
+                    </form>
+                  {% else %}
+                    <form method="POST" action="{% url 'gestion:publicar-menu' menu.pk %}">
+                      {% csrf_token %}
+                      <button type="submit" class="button is-success has-text-white">Publicar</button>
+                    </form>
+                  {% endif %}
                 </div>
               </div>
-              <div
-                x-show="deleteURL"
-                class="delete-entity-container"
-                x-on:keyup.window.escape="deleteURL = ''"
+            </div>
+            <div
+              x-show="deleteURL"
+              class="delete-entity-container"
+              x-on:keyup.window.escape="deleteURL = ''"
+              >
+              <form
+                class="delete-entity-form"
+                method="POST"
+                x-bind:action="deleteURL"
                 >
-                <form
-                  class="delete-entity-form"
-                  method="POST"
-                  x-bind:action="deleteURL"
-                  >
-                    {% csrf_token %}
-                    <p>Seguro que quieres eliminar el menú?</p>
-                    <input
-                      x-on:click="deleteURL = ''"
-                      type="button"
-                      value="Cancelar"
-                      class="button"
-                    />
-                  <input type="submit" value="confirmar" class="button is-primary" />
-                </form>
-              </div>
+                  {% csrf_token %}
+                  <p>Seguro que quieres eliminar el menú?</p>
+                  <input
+                    x-on:click="deleteURL = ''"
+                    type="button"
+                    value="Cancelar"
+                    class="button"
+                  />
+                <input type="submit" value="confirmar" class="button is-primary" />
+              </form>
             </div>
-          {% endfor %}
-          {% if menus|length <= max_menus %}
-            <div class="column is-6 is-4-widescreen is-flex">
-              <a class="card is-entity add-entity-card" href="{% url 'gestion:crear-menu' %}">
-                <span>+</span>
-              </a>
-            </div>
-          {% endif%}
-        </div>
-      {% else %}
-        <h2 class="title is-5">Aún no has creado ningún menú</h2>
-      {% endif %}
+          </div>
+        {% endfor %}
+        {% if menus|length <= max_menus %}
+          <div class="column is-6 is-4-widescreen is-flex">
+            <a class="card is-entity add-entity-card" href="{% url 'gestion:crear-menu' %}">
+              <span>+</span>
+            </a>
+          </div>
+        {% endif%}
+      </div>
     </section>
   </div>
 {% endblock %}

@@ -19,103 +19,103 @@ class Command(BaseCommand):
             superuser.set_password("adminadmin")
             superuser.save()
 
-        usuarioManduca, usuarioManduca_created = User.objects.get_or_create(
-            username="Manduca"
+        usuarioDemo, usuarioDemo_created = User.objects.get_or_create(
+            username="Demo"
         )
 
-        if usuarioManduca_created:
-            usuarioManduca.is_superuser = False
-            usuarioManduca.is_staff = False
-            usuarioManduca.email = "anduca@manduca.text"
-            usuarioManduca.set_password("Manduca123")
-            usuarioManduca.save()
+        if usuarioDemo_created:
+            usuarioDemo.is_superuser = False
+            usuarioDemo.is_staff = False
+            usuarioDemo.email = "demo@gmail.com"
+            usuarioDemo.set_password("Demo123")
+            usuarioDemo.save()
 
-        menuManduca, _ = Menu.objects.get_or_create(
-            nombre="Carta Manduca",
-            descripcion="Menú de Verano Manduca",
-            usuario=usuarioManduca,
+        menuDemo, _ = Menu.objects.get_or_create(
+            nombre="Carta Demo",
+            descripcion="Menú de Verano Demo",
+            usuario=usuarioDemo,
         )
 
-        categoriaManduca, _ = Categoria.objects.get_or_create(
-            nombre="Bocadillos Calientes", menu=menuManduca
+        categoriaDemo, _ = Categoria.objects.get_or_create(
+            nombre="Bocadillos Calientes", menu=menuDemo
         )
 
-        categoriaManduca2, _ = Categoria.objects.get_or_create(
-            nombre="Bocadillos Fríos", menu=menuManduca
+        categoriaDemo2, _ = Categoria.objects.get_or_create(
+            nombre="Bocadillos Fríos", menu=menuDemo
         )
 
-        categoriaManduca3, _ = Categoria.objects.get_or_create(
-            nombre="Hamburguesas", menu=menuManduca
+        categoriaDemo3, _ = Categoria.objects.get_or_create(
+            nombre="Hamburguesas", menu=menuDemo
         )
 
-        plato1Manduca, _ = Plato.objects.get_or_create(
+        plato1Demo, _ = Plato.objects.get_or_create(
             nombre="Perrito Bahíña",
             precio=D("6.99"),
             descripcion="Frankfurt 200gr, Champiñones, Cebolla Caramelizada, Queso Edam",  # noqa:E501
-            categoria=categoriaManduca,
+            categoria=categoriaDemo,
         )
 
-        plato2Manduca, _ = Plato.objects.get_or_create(
+        plato2Demo, _ = Plato.objects.get_or_create(
             nombre="Bocadillo Suculento",
             precio=D("7.50"),
             descripcion="Pechuga de pollo, Lomo adobado, Queso Edam, Salsa Alioli",  # noqa:E501
-            categoria=categoriaManduca,
+            categoria=categoriaDemo,
         )
 
-        plato3Manduca, _ = Plato.objects.get_or_create(
+        plato3Demo, _ = Plato.objects.get_or_create(
             nombre="Bocadillo de Tortilla",
             precio=D("7.50"),
             descripcion="Tortilla Española, Queso Edam",  # noqa:E501
-            categoria=categoriaManduca2,
+            categoria=categoriaDemo2,
         )
 
-        plato4Manduca, _ = Plato.objects.get_or_create(
+        plato4Demo, _ = Plato.objects.get_or_create(
             nombre="Hamburguesa Completa",
             precio=D("4.50"),
             descripcion="200gr Ternera, Queso, Lechuga, Tomate, Cebolla",  # noqa:E501
-            categoria=categoriaManduca3,
+            categoria=categoriaDemo3,
         )
 
-        plato5Manduca, _ = Plato.objects.get_or_create(
+        plato5Demo, _ = Plato.objects.get_or_create(
             nombre="Bocadillo Suculento 2",
             precio=D("7.50"),
             descripcion="Pechuga de pollo, Lomo adobado, Queso Edam, Salsa Alioli",  # noqa:E501
-            categoria=categoriaManduca,
+            categoria=categoriaDemo,
         )
 
-        plato6Manduca, _ = Plato.objects.get_or_create(
+        plato6Demo, _ = Plato.objects.get_or_create(
             nombre="Bocadillo Suculento 3",
             precio=D("7.50"),
             descripcion="Pechuga de pollo, Lomo adobado, Queso Edam, Salsa Alioli",  # noqa:E501
-            categoria=categoriaManduca,
+            categoria=categoriaDemo,
         )
 
-        plato7Manduca, _ = Plato.objects.get_or_create(
+        plato7Demo, _ = Plato.objects.get_or_create(
             nombre="Bocadillo Suculento 4",
             precio=D("7.50"),
             descripcion="Pechuga de pollo, Lomo adobado, Queso Edam, Salsa Alioli",  # noqa:E501
-            categoria=categoriaManduca,
+            categoria=categoriaDemo,
         )
 
-        plato8Manduca, _ = Plato.objects.get_or_create(
+        plato8Demo, _ = Plato.objects.get_or_create(
             nombre="Bocadillo Suculento 5",
             precio=D("7.50"),
             descripcion="Pechuga de pollo, Lomo adobado, Queso Edam, Salsa Alioli",  # noqa:E501
-            categoria=categoriaManduca,
+            categoria=categoriaDemo,
         )
 
-        plato9Manduca, _ = Plato.objects.get_or_create(
+        plato9Demo, _ = Plato.objects.get_or_create(
             nombre="Bocadillo Suculento 6",
             precio=D("7.50"),
             descripcion="Pechuga de pollo, Lomo adobado, Queso Edam, Salsa Alioli",  # noqa:E501
-            categoria=categoriaManduca,
+            categoria=categoriaDemo,
         )
 
-        plato10Manduca, _ = Plato.objects.get_or_create(
+        plato10Demo, _ = Plato.objects.get_or_create(
             nombre="Bocadillo Suculento 7",
             precio=D("7.50"),
             descripcion="Pechuga de pollo, Lomo adobado, Queso Edam, Salsa Alioli",  # noqa:E501
-            categoria=categoriaManduca,
+            categoria=categoriaDemo,
         )
 
         print("Sampledata Ejecutado")
