@@ -2,7 +2,7 @@ from pathlib import Path
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = (
     "django-insecure-s!ksj9piahm&(0rjkr$8exu3+7$3@ovt8vl$t&@0_dlyey2exu"  # noqa: E501
 )
-
+print("base")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
